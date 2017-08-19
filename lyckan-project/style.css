@@ -1,0 +1,26 @@
+.main_container{
+    background-color:#9b59b6;
+    margin: 0px;
+    padding: 0px;
+}
+
+.canvas_object{
+    background-color: #34495e;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin: auto;
+    box-shadow: 0 0 4px rgba(0,0,0,.3);
+}
+
+.title_game_panel{
+    background-color: #34495e;
+    height: 50px;
+    padding: 10px;
+    margin: 0px;
+    text-align: center;
+    color: #DADADA;
+
+}
