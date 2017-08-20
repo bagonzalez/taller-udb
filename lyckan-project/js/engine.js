@@ -6,7 +6,14 @@ $(document).ready(
         var contexto = canvas.getContext("2d");
         var numberEnemies = 10;
         var runGame = true;
+        var menuGame = true;
         var score = 0;
+        var buttons = Array(5);
+        buttons[0] = {x:200,y:200,width:200,height:60, text:"Iniciar"};
+        buttons[1] = {x:200,y:300,width:200,height:60, text:"Score"};
+        buttons[2] = {x:200,y:400,width:200,height:60, text:"Configuracion"};
+        buttons[3] = {x:200,y:500,width:200,height:60, text:"Regresar"};
+        buttons[4] = {x:200,y:500,width:200,height:60, text:"Ok"};
         
         //Fisicas
         var velocidad = 5;
@@ -169,26 +176,165 @@ $(document).ready(
         }
 
         
-        //Escene
-        function escene() {
-            if (runGame){
-                prepareNewFrame();
-                armyToEnemy();
-                playerToEnemy();
-                moveAndDraw();
-                drawPlayer(player.img, player.width, player.height, player.posX, player.posY);
-                drawEnemies(enemies);
-                animation_army();
-                drawScore(score);
-            }else{
-
+        
+        //Menu
+        function mainView() {
+            contexto.save;
+            var rect = {x:0,y:0,width:600,height:600};
+            var backColor = "red";
+            var textColor = "white";
+            contexto.fillStyle = "black";
+            contexto.fillRect(0, 0, 600, 600);
+            for (var i = 0; i < 3; i++) {
+                var button = buttons[i];
+                contexto.fillStyle = backColor;
+                contexto.fillRect(button.x, button.y, button.width, button.height);
+                contexto.font="20px arial";
+                contexto.fillStyle = textColor;
+                contexto. fillText(button.text, button.x +20,button.y + 35);
             }
+                
             
+
+            
+            contexto.restore;
+        }
+
+        //Elementos del menu
+            //Score
+        
+        function scoreView(){
+            contexto.save;
+            var backColor = "blue";
+            var textColor = "white";
+            var btnColor = "green";
+            contexto.fillStyle = backColor;
+            contexto.fillRect(0, 0, 600, 600);
+            
+            contexto.fillStyle = btnColor;
+            contexto.fillRect(buttons[3].x, buttons[3].y, buttons[3].width, buttons[3].height);
+            contexto.font="20px arial";
+            contexto.fillStyle = textColor;
+            contexto. fillText(buttons[3].text, buttons[3].x +20,buttons[3].y + 35);
+            contexto.restore;
+        }
+
+        function settingView(){
+            contexto.save;
+            var backColor = "blue";
+            var textColor = "white";
+            var btnColor = "green";
+            
+            contexto.fillStyle = backColor;
+            contexto.fillRect(0, 0, 600, 600);
+            
+            contexto.fillStyle = btnColor;
+            contexto.fillRect(buttons[4].x, buttons[4].y, buttons[4].width, buttons[4].height);
+            contexto.font="20px arial";
+            contexto.fillStyle = textColor;
+            contexto. fillText(buttons[4].text, buttons[4].x +20,buttons[4].y + 35);
+            contexto.restore;
+        }
+
+        //Seleccion de boton con mouse
+        function getMousePos(canvas, event) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            };
+        }
+        function isInside(pos, rect){
+            return pos.x > rect.x && pos.x < rect.x+rect.width && 
+            pos.y < rect.y+rect.height && pos.y > rect.y
         }
         
         
+        function myClick(event) {
+            var mousePos = getMousePos(canvas, event);
+            
+                if (isInside(mousePos,buttons[0]) 
+                ) {
+                    console.log("contacto");
+                    canvas.removeEventListener('click', myClick);
+                    menuGame = false;
+                    startGame();
+                     
+                }
+
+                if (isInside(mousePos,buttons[1]) 
+                ) {
+                    console.log("contacto1");
+                    //canvas.removeEventListener('click', myClick);
+                    //menuGame = false;
+                    canvas.removeEventListener('click', myClick);
+                    scoreView();
+                    canvas.addEventListener('click', myClick2);  
+                }
+
+                if (isInside(mousePos,buttons[2]) 
+                ) {
+                    console.log("contacto2");
+                    //canvas.removeEventListener('click', myClick);
+                    //menuGame = false;
+                    canvas.removeEventListener('click', myClick);
+                    scoreView();
+                    canvas.addEventListener('click', settingClick); 
+                    
+                }
+
+                
+        }
+
+        function myClick2(event) {
+            var mousePos = getMousePos(canvas, event);
+            
+                if (isInside(mousePos,buttons[3]) 
+                ) {
+                    console.log("contacto");
+                    canvas.removeEventListener('click', myClick2);
+                    mainView(); 
+                    canvas.addEventListener('click', myClick);
+                }
+                
+        }
+
+        function settingClick(event) {
+            var mousePos = getMousePos(canvas, event);
+            
+                if (isInside(mousePos,buttons[4]) 
+                ) {
+                    console.log("contacto");
+                    canvas.removeEventListener('click', settingClick);
+                    mainView(); 
+                    canvas.addEventListener('click', myClick);
+                }
+                
+        }
+
         
-        //Inicio
+        
+        //Funciones de inicio
+        function escene() {
+            if (menuGame) {
+                mainView(); 
+                canvas.addEventListener('click', myClick);
+            }
+            if (runGame && !menuGame){
+                prepareNewFrame();
+                        armyToEnemy();
+                        playerToEnemy();
+                        moveAndDraw();
+                        drawPlayer(player.img, player.width, player.height, 
+                            player.posX, player.posY);
+                        drawEnemies(enemies);
+                        animation_army();
+                        drawScore(score);
+            } 
+        }
+        
+        
+        //Loop
         function startGame(){
             if (typeof game_loop!= "undefined") {
                 clearInterval(game_loop);
@@ -196,10 +342,9 @@ $(document).ready(
             game_loop = setInterval(escene, 33);
         }
 
-        
+        //Primer inicio
 
-
-        startGame();
+        escene();
 
     }
 )
