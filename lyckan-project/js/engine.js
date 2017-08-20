@@ -4,17 +4,27 @@ $(document).ready(
         // Propiedades iniciales
         var canvas = $("#canvas")[0];
         var contexto = canvas.getContext("2d");
-        var numberEnemies = 10;
+        var numberEnemies = 20;
         var runGame = true;
         var menuGame = true;
         var score = 0;
+        var pointCreateEnemy = 100;
         var buttons = Array(5);
         buttons[0] = {x:200,y:200,width:200,height:60, text:"Iniciar"};
         buttons[1] = {x:200,y:300,width:200,height:60, text:"Score"};
         buttons[2] = {x:200,y:400,width:200,height:60, text:"Configuracion"};
         buttons[3] = {x:200,y:500,width:200,height:60, text:"Regresar"};
         buttons[4] = {x:200,y:500,width:200,height:60, text:"Ok"};
+        var imgEnemies = Array(5);
         
+        imgEnemies[0]=$("#enemy"+1)[0];
+        imgEnemies[1]=$("#enemy"+2)[0];
+        imgEnemies[2]=$("#enemy"+3)[0];
+        imgEnemies[3]=$("#enemy"+4)[0];
+        imgEnemies[4]=$("#enemy"+5)[0];
+            
+        
+
         //Fisicas
         var velocidad = 5;
         var game_loop;
@@ -26,20 +36,27 @@ $(document).ready(
 
         //Actores
         var player = {direccion:"", posX:250, posY:510, width:60, height:45, img:null};
-        var enemies = Array(5);
-        for (var i = 0; i < enemies.length; i++) {
-            var image = $("#enemy"+(i+1))[0];
-            enemies[i] = {direccion:"", posX:numRandom(10,(canvas.width - 70)), posY:-numRandom(100,1000), width:60, height:45, img: image};
-            
+        var enemies = Array();
+        for (var i = 0; i < numberEnemies; i++) {
+            var image = $("#enemy"+1)[0];
+            enemies.push({direccion:"", posX:numRandom(10,(canvas.width - 70)), posY:-numRandom(100 + pointCreateEnemy,200 + pointCreateEnemy), width:60, height:45, img: image});
+            pointCreateEnemy +=100;
         }
-        var laser1 = {direccion:"", posX:0, posY:500, width:9, height:45, img:null};
+        var laser1 = {direccion:"", posX:0, posY:500, width:13, height:54, img:null};
         var lasers = Array();
+        console.log(enemies.length);
+
+        var imgEnemyFinal=$("#masterEnemy"+1)[0];
+        var enemyFinal = {direccion:"", posX:50, posY:-350, width:500, height:302, img:imgEnemyFinal};
 
         //Graficos
         player.img = $("#playerImg")[0];
         
         laser1.img = $("#laser1")[0];
         var damage1 = $("#damage1")[0];
+
+        //Sonidos
+        laserSnd = $("#laserSnd1")[0];
 
 
         //Controles
@@ -57,6 +74,7 @@ $(document).ready(
                 case 32:
                 lasers.push({posX:player.posX + (player.width/2), posY:500, width:9, height:45, img:$("#laser1")[0]})
                 drawArmy(lasers);
+                laserSound();
                 break;
             }
         }
@@ -89,7 +107,7 @@ $(document).ready(
             for (var i = 0; i < array.length; i++) {
                 var element = array[i];
                 contexto.drawImage(element.img, element.posX, element.posY, element.width, element.height);
-                enemies[i].posY += 1;
+                enemies[i].posY += 2;
             }
             contexto.restore;            
         }
@@ -175,6 +193,35 @@ $(document).ready(
 
         }
 
+        function exitEnemyScreen(){
+            
+            if (enemies.length > 0) {
+                if (enemies[0].posY > 610){
+                    enemies.splice(0, 1);
+                }
+            }
+            
+        }
+
+        function enemyFinalInit(){
+            if (enemies.length <= 0){
+                contexto.save;
+                contexto.drawImage(enemyFinal.img, enemyFinal.posX, enemyFinal.posY, enemyFinal.width, enemyFinal.height);
+                
+                if(enemyFinal.posY < 100){
+                    enemyFinal.posY += 1;
+                }
+                contexto.restore;
+            }
+            
+        }
+
+        //SOUND
+
+        function laserSound(){
+            laserSnd.play();
+        }
+
         
         
         //Menu
@@ -236,6 +283,16 @@ $(document).ready(
             contexto.restore;
         }
 
+        function gameOverView() {
+            contexto.restore;
+            contexto.fillStyle = "red";
+            contexto.fillRect(buttons[4].x, buttons[4].y, buttons[4].width, buttons[4].height);
+            contexto.font="40px arial";
+            contexto.fillStyle = "white";
+            contexto. fillText("Fin del Juego", buttons[4].x +20,buttons[4].y + 35);
+            contexto.restore;
+        }
+
         //Seleccion de boton con mouse
         function getMousePos(canvas, event) {
             var rect = canvas.getBoundingClientRect();
@@ -255,16 +312,17 @@ $(document).ready(
             
                 if (isInside(mousePos,buttons[0]) 
                 ) {
-                    console.log("contacto");
+                    
                     canvas.removeEventListener('click', myClick);
                     menuGame = false;
+                    runGame = true;
                     startGame();
                      
                 }
 
                 if (isInside(mousePos,buttons[1]) 
                 ) {
-                    console.log("contacto1");
+                    
                     //canvas.removeEventListener('click', myClick);
                     //menuGame = false;
                     canvas.removeEventListener('click', myClick);
@@ -274,12 +332,13 @@ $(document).ready(
 
                 if (isInside(mousePos,buttons[2]) 
                 ) {
-                    console.log("contacto2");
+                    
                     //canvas.removeEventListener('click', myClick);
                     //menuGame = false;
                     canvas.removeEventListener('click', myClick);
                     scoreView();
-                    canvas.addEventListener('click', settingClick); 
+                    canvas.addEventListener('click', settingClick);
+                    
                     
                 }
 
@@ -291,7 +350,6 @@ $(document).ready(
             
                 if (isInside(mousePos,buttons[3]) 
                 ) {
-                    console.log("contacto");
                     canvas.removeEventListener('click', myClick2);
                     mainView(); 
                     canvas.addEventListener('click', myClick);
@@ -304,10 +362,11 @@ $(document).ready(
             
                 if (isInside(mousePos,buttons[4]) 
                 ) {
-                    console.log("contacto");
                     canvas.removeEventListener('click', settingClick);
                     mainView(); 
                     canvas.addEventListener('click', myClick);
+                    runGame = true;
+                    menuGame = true; 
                 }
                 
         }
@@ -317,19 +376,27 @@ $(document).ready(
         //Funciones de inicio
         function escene() {
             if (menuGame) {
+                prepareNewFrame();
                 mainView(); 
                 canvas.addEventListener('click', myClick);
             }
             if (runGame && !menuGame){
                 prepareNewFrame();
+                        exitEnemyScreen();
                         armyToEnemy();
                         playerToEnemy();
                         moveAndDraw();
                         drawPlayer(player.img, player.width, player.height, 
                             player.posX, player.posY);
+                        enemyFinalInit();
                         drawEnemies(enemies);
                         animation_army();
                         drawScore(score);
+            }
+            if(!runGame && !menuGame){
+                gameOverView();
+                canvas.addEventListener('click', settingClick);
+                
             } 
         }
         
@@ -345,6 +412,9 @@ $(document).ready(
         //Primer inicio
 
         escene();
+
+        var audio = $("#audio1")[0];
+        audio.play();
 
     }
 )
