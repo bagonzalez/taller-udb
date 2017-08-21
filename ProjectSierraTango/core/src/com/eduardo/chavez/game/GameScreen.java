@@ -3,6 +3,7 @@ package com.eduardo.chavez.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Timer;
@@ -25,17 +26,25 @@ class GameScreen implements Screen {
     private String currentAtlasKey = new String("IDLE000");
 
 
+    //
+    //OrthographicCamera camera;
+
     public GameScreen(GameLoader gameLoader) {
         this.game = gameLoader;
 
-        //esto no sirve
-        textureAtlas = new TextureAtlas(Gdx.files.internal("data/spritesheet.atlas"));
+        //camera = new OrthographicCamera();
+        //camera.setToOrtho(false, 800, 480);
 
+        textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet .atlas"));
         TextureAtlas.AtlasRegion region = textureAtlas.findRegion("IDLE000");
         sprite = new Sprite(region);
         sprite.setPosition(120, 100);
-        sprite.scale(2.5f);
+        sprite.scale(0.05f);
 
+
+    }
+
+    private void moveAnimation() {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -55,12 +64,20 @@ class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        //camera.update();
+        //game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         sprite.draw(game.batch);
+
+
         game.batch.end();
+
+        if (Gdx.input.isTouched()){
+            moveAnimation();
+        }
+
     }
 
     @Override
