@@ -38,7 +38,7 @@ class MainMenuScreen implements Screen {
         gameLoader.font.draw(gameLoader.batch, "Toca para iniciar", 100, 100);
         gameLoader.batch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.justTouched()) {
             gameLoader.setScreen(new GameScreen(gameLoader));
             dispose();
         }

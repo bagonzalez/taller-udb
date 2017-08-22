@@ -1,14 +1,14 @@
 package com.eduardo.chavez.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Timer;
-
-import java.sql.Time;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.eduardo.chavez.game.Actores.GreenEnemy;
+import com.eduardo.chavez.game.Actores.MainActor;
+import com.eduardo.chavez.game.Actores.MainActorStatic;
 
 
 /**
@@ -17,72 +17,88 @@ import java.sql.Time;
 
 class GameScreen implements Screen {
     final GameLoader game;
+    private Stage stage;
+
+    Controller controller;
+    //MainActor mainActor;
+    GreenEnemy greenEnemy;
+    MainActorStatic mainActor;
 
 
-    //Carga de personaje
-    private TextureAtlas textureAtlas;
-    private Sprite sprite;
-    private int currentFrame = 1;
-    private String currentAtlasKey = new String("IDLE000");
+    //Objects used
+    Texture walkSheet, enemyTexture;
+    boolean isJumping;
 
-
-    //
-    //OrthographicCamera camera;
+    private float currentPosition;
 
     public GameScreen(GameLoader gameLoader) {
         this.game = gameLoader;
-
-        //camera = new OrthographicCamera();
-        //camera.setToOrtho(false, 800, 480);
-
-        textureAtlas = new TextureAtlas(Gdx.files.internal("spritesheet .atlas"));
-        TextureAtlas.AtlasRegion region = textureAtlas.findRegion("IDLE000");
-        sprite = new Sprite(region);
-        sprite.setPosition(120, 100);
-        sprite.scale(0.05f);
-
+        walkSheet = new Texture(Gdx.files.internal("actor/IDLE000.png"));
+        enemyTexture = new Texture(Gdx.files.internal("actor/enemy1.png"));
 
     }
 
-    private void moveAnimation() {
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                currentFrame++;
-                if (currentFrame > 20) currentFrame = 1;
-
-                currentAtlasKey = "IDLE" + String.format("%03d", currentFrame);
-                sprite.setRegion(textureAtlas.findRegion(currentAtlasKey));
-            }
-        }, 0, 1 / 30.0f);
-    }
 
     @Override
     public void show() {
+        controller = new Controller(game);
+        stage = new Stage();
+        stage.setDebugAll(true);
+        mainActor = new MainActorStatic(walkSheet);
+        greenEnemy = new GreenEnemy(enemyTexture);
+        stage.addActor(mainActor);
+        stage.addActor(greenEnemy);
+        mainActor.setPosition(20, 100);
+        greenEnemy.setPosition(500, 100);
+
+        currentPosition = mainActor.getX();
 
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //camera.update();
-        //game.batch.setProjectionMatrix(camera.combined);
-        game.batch.begin();
-        sprite.draw(game.batch);
+        if (Gdx.app.getType() == Application.ApplicationType.Android)
+            controller.draw();
 
+        stage.act();
+        handleInput();
+        verifyCollisions();
+        stage.draw();
 
-        game.batch.end();
+    }
 
-        if (Gdx.input.isTouched()){
-            moveAnimation();
+    private void verifyCollisions() {
+        if (mainActor.isAlive() && (mainActor.getWidth() + mainActor.getX() > greenEnemy.getX())) {
+            System.out.println("Colision");
+            mainActor.setAlive(false);
         }
+    }
+
+
+    private void handleInput() {
+        if (controller.isRightPressed()) {
+            mainActor.setX((currentPosition += 200 * Gdx.graphics.getDeltaTime()));
+
+        } else if (controller.isLeftPressed()) {
+
+            mainActor.setX((currentPosition -= 200 * Gdx.graphics.getDeltaTime()));
+        } else {
+
+        }
+
+        if (controller.isUpPressed() && (!isJumping)) {
+            //playerBox.y += 200 * Gdx.graphics.getDeltaTime();
+
+        }
+
 
     }
 
     @Override
     public void resize(int width, int height) {
-
+        controller.resize(width, height);
     }
 
     @Override
@@ -97,11 +113,13 @@ class GameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        walkSheet.dispose();
+        stage.dispose();
     }
 
     @Override
     public void dispose() {
-        textureAtlas.dispose();
+        walkSheet.dispose();
+        stage.dispose();
     }
 }
