@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <tittle>Game canvas Workshop</tittle>
+  <tittle>Brick Breaker UDB</tittle>
     <style>
         * {
             padding:0; margin:0
@@ -30,9 +30,19 @@ var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
+var color = "#0095DD";
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
@@ -54,7 +64,7 @@ function keyUpHandler(e) {
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath();
 }
@@ -73,10 +83,20 @@ function draw() {
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
+        color = getRandomColor();
     }
-    if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
-        dy = -dy;
+        if(y + dy < ballRadius) {
+            dy = -dy;
+            color = getRandomColor();
+        } else if(y + dy > canvas.height-ballRadius) {
+        if(x > paddleX && x < paddleX + paddleWidth) {
+         dy = -dy;
+            }
+        else {
+        alert("GAME OVER");
+        document.location.reload();
     }
+}
     
     if(rightPressed && paddleX < canvas.width-paddleWidth) {
         paddleX += 7;
