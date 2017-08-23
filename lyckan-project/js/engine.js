@@ -644,7 +644,7 @@ $(document).ready(
             if (typeof game_loop != "undefined") {
                 clearInterval(game_loop);
             }
-            game_loop = setInterval(escene, 33);
+            
         }
 
         //Primer inicio
