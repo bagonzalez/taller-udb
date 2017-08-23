@@ -7,10 +7,11 @@ $(document).ready(
         var numberEnemies = 1;
         var runGame = true;
         var menuGame = true;
+        var intro = true;
         var score = 0;
         var pointCreateEnemy = 100;
         var buttons = Array(5);
-        var timerBossAtac= 0;
+        var timerBossAtac = 0;
         buttons[0] = { x: 200, y: 300, width: 200, height: 60, text: "Iniciar" };
         buttons[1] = { x: 200, y: 400, width: 200, height: 60, text: "Score" };
         buttons[2] = { x: 200, y: 500, width: 200, height: 60, text: "Configuracion" };
@@ -23,9 +24,9 @@ $(document).ready(
         var caracterX = 30;
 
         for (var i = 0; i < 21; i++) {
-            imgEnemies[i] =$("#enemy" + (1+i))[0];        
+            imgEnemies[i] = $("#enemy" + (1 + i))[0];
         }
-    
+
         //FISICAS
         var velocidad = 5;
         var game_loop;
@@ -39,7 +40,7 @@ $(document).ready(
         var player = { direccion: "", posX: 250, posY: 510, width: 60, height: 45, img: null, lives: 3 };
         var enemies = Array();
         for (var i = 0; i < numberEnemies; i++) {
-            var image = imgEnemies[numRandom(0,20)];
+            var image = imgEnemies[numRandom(0, 20)];
             enemies.push({ direccion: "", posX: numRandom(10, (canvas.width - 70)), posY: -numRandom(100 + pointCreateEnemy, 200 + pointCreateEnemy), width: 60, height: 45, img: image, lives: 2, colision: false });
             pointCreateEnemy += 100;
         }
@@ -47,7 +48,7 @@ $(document).ready(
         var laser2 = { direccion: "", posX: 0, posY: 500, width: 13, height: 54, img: null, colision: false };
         var lasers = Array();
         var lasersEnemy = Array();
-        
+
 
         var imgEnemyFinal = $("#masterEnemy" + 1)[0];
         var enemyFinal = { direccion: "1", posX: 50, posY: -350, width: 500, height: 302, img: imgEnemyFinal, lives: 4 };
@@ -61,7 +62,7 @@ $(document).ready(
 
         var backImg = Array(4);
         for (var i = 0; i < 4; i++) {
-            backImg[i] = $("#back"+ (i + 1))[0];    
+            backImg[i] = $("#back" + (i + 1))[0];
         }
 
         //SONIDOS
@@ -289,7 +290,7 @@ $(document).ready(
                             laser.colision = true;
                             lasers.splice(num, 1);
                         }
-                        
+
 
                     }
 
@@ -333,15 +334,15 @@ $(document).ready(
         }
 
         function enemyFinalInit() {
-            
+
             armyToEnemyFinal();
             armyToPlayer();
             if (enemies.length <= 0) {
                 if (audio.volume > 0.02) {
                     audio.volume -= 0.02;
-                }else{
+                } else {
                     audio.pause();
-                    if(!trackFinal){
+                    if (!trackFinal) {
                         audioFinal.play();
                         trackFinal = true;
                     }
@@ -352,22 +353,22 @@ $(document).ready(
 
                 if (enemyFinal.posY < 100) {
                     enemyFinal.posY += 2;
-                }else{
-                    
-                    if(enemyFinal.direccion == 1){
-                        if(enemyFinal.posX < (200)){
+                } else {
+
+                    if (enemyFinal.direccion == 1) {
+                        if (enemyFinal.posX < (200)) {
                             enemyFinal.posX += velocidad;
-                        }else{
+                        } else {
                             enemyFinal.direccion = -1;
                             lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
                             drawArmyEnemy(lasersEnemy);
                         }
                     }
 
-                    if(enemyFinal.direccion == -1){
-                        if(enemyFinal.posX > -100){
+                    if (enemyFinal.direccion == -1) {
+                        if (enemyFinal.posX > -100) {
                             enemyFinal.posX -= velocidad;
-                        }else{
+                        } else {
                             enemyFinal.direccion = 1;
                             lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
                             drawArmyEnemy(lasersEnemy);
@@ -378,7 +379,7 @@ $(document).ready(
                         lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
                         drawArmyEnemy(lasersEnemy);
                         timerBossAtac = 0;
-                    }else{
+                    } else {
                         timerBossAtac += 10;
                     }
                 }
@@ -545,31 +546,56 @@ $(document).ready(
 
         }
 
-        function history(){
+        function wrapText(text, x, y, maxWidth, lineHeight) {
             contexto.save;
-                var txt = "";
-                var textos = Array(3);
-                var tempo = 6;
-                textos[0] = "Hola amigitos mios hoy les contaremos la historia de la /n mal";
-                textos[0] = "Hola amigitos mios hoy les contaremos la historia de la mal";
-                textos[0] = "Hola amigitos mios hoy les contaremos la historia de la mal";
-                textos[0] = "Hola amigitos mios hoy les contaremos la historia de la mal";
-                textos[0] = "Hola amigitos mios hoy les contaremos la historia de la mal";
-                contexto.font = "20px arial";
-                contexto.fillStyle = "white";
-                txt = textos[0].substr(0, posicionCaracter);
-                if (posicionCaracter < textos[0].length && velocidadTexto >= tempo) {
-                    posicionCaracter += 1;
-                    velocidadTexto = 0;
+            var words = text.split(' ');
+            var line = '';
 
+            for (var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + ' ';
+                var metrics = contexto.measureText(testLine);
+                var testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    contexto.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
                 }
-                if(velocidadTexto < tempo){
-                    velocidadTexto += 2;
+                else {
+                    line = testLine;
                 }
-                
-                contexto.fillText(txt, caracterX, 200);
-                caracterX = 30;
-                
+            }
+            contexto.fillText(line, x, y);
+            contexto.restore;
+        }
+
+        function history() {
+            contexto.save;
+            var txt = "";
+            var textos = "En el año 2500 los humanos iniciaron una dura batalla contra una nueva raza que vieja por el espacio en busca de un planeta con sustento biológico para establecer una nueva colonia, los humanos desarrollaron suficiente tecnología y luchan para defender su hogar. Un joven soldado inicia la ultima batalla contra la gran flota de invasores.";
+            var tempo = 6;
+            contexto.font = "20px arial";
+            contexto.fillStyle = "white";
+            txt = textos.substr(0, posicionCaracter);
+            if (posicionCaracter < textos.length && velocidadTexto >= tempo) {
+                posicionCaracter += 1;
+                velocidadTexto = 0;
+
+            }
+            if (velocidadTexto < tempo) {
+                velocidadTexto += 2;
+            }
+
+            if(posicionCaracter >= (textos.length -1)){
+                intro = false;
+            }
+
+            var maxWidth = 570;
+            var lineHeight = 25;
+            var x = 30;
+            var y = 60;
+
+            wrapText(txt, x, y, maxWidth, lineHeight);
+
             contexto.restore;
         }
 
@@ -583,28 +609,28 @@ $(document).ready(
                 canvas.addEventListener('click', myClick);
             }
 
-            if (runGame && !menuGame) {
+            if (runGame && !menuGame && intro) {
                 prepareNewFrame();
                 setBackground(backImg[2]);
                 history();
-                
+
             }
 
-            // if (runGame && !menuGame) {
-            //     prepareNewFrame();
-            //     setBackground(backImg[2]);
-            //     exitEnemyScreen();
-            //     armyToEnemy();
-            //     playerToEnemy();
-            //     moveAndDraw();
-            //     drawPlayer(player.img, player.width, player.height,
-            //         player.posX, player.posY);
-            //     enemyFinalInit();
-            //     drawEnemies(enemies);
-            //     animation_army();
-            //     drawScore(score);
-            //     drawLives();
-            // }
+            if (runGame && !menuGame && !intro) {
+                prepareNewFrame();
+                setBackground(backImg[2]);
+                exitEnemyScreen();
+                armyToEnemy();
+                playerToEnemy();
+                moveAndDraw();
+                drawPlayer(player.img, player.width, player.height,
+                    player.posX, player.posY);
+                enemyFinalInit();
+                drawEnemies(enemies);
+                animation_army();
+                drawScore(score);
+                drawLives();
+            }
             if (!runGame && !menuGame) {
                 gameOverView();
                 canvas.addEventListener('click', settingClick);
@@ -622,9 +648,9 @@ $(document).ready(
         }
 
         //Primer inicio
-        
+
         escene();
         audio.play();
-        
+
     }
 )
