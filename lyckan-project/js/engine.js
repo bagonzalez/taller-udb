@@ -4,7 +4,7 @@ $(document).ready(
         // PROPIEDADES INICIALESs
         var canvas = $("#canvas")[0];
         var contexto = canvas.getContext("2d");
-        var numberEnemies = 1;
+        var numberEnemies = 10;
         var runGame = true;
         var menuGame = true;
         var intro = true;
@@ -12,6 +12,7 @@ $(document).ready(
         var pointCreateEnemy = 100;
         var buttons = Array(5);
         var timerBossAtac = 0;
+        var maxScore = 0;
         buttons[0] = { x: 200, y: 300, width: 200, height: 60, text: "Iniciar" };
         buttons[1] = { x: 200, y: 400, width: 200, height: 60, text: "Score" };
         buttons[2] = { x: 200, y: 500, width: 200, height: 60, text: "Configuracion" };
@@ -24,11 +25,26 @@ $(document).ready(
         var caracterX = 30;
         var transparencia = 1;
         var cross = false;
-        transicionInicialIn=0;
-        transicionInicialOut=1;
+        var transicionInicialIn = 0;
+        var transicionInicialOut = 1;
+        var enemyFinalLives = 5;
+        var playerLives = 3;
+        var speedEnemies = 2;
+        var increment = 1;
+
 
         for (var i = 0; i < 21; i++) {
             imgEnemies[i] = $("#enemy" + (1 + i))[0];
+        }
+        //Base de datos
+        if (typeof (Storage) !== "undefined") {
+            if (localStorage.maxScore == "undefined") {
+                localStorage.setItem("maxScore", maxScore); 
+            }
+            
+            maxScore = localStorage.getItem("maxScore");
+        } else {
+            // No soporta
         }
 
         //FISICAS
@@ -44,7 +60,7 @@ $(document).ready(
         var player = { direccion: "", posX: 250, posY: 510, width: 60, height: 45, img: null, lives: 3 };
         var enemies = Array();
 
-        
+
         var laser1 = { direccion: "", posX: 0, posY: 500, width: 13, height: 54, img: null, colision: false };
         var laser2 = { direccion: "", posX: 0, posY: 500, width: 13, height: 54, img: null, colision: false };
         var lasers = Array();
@@ -75,13 +91,14 @@ $(document).ready(
         var audioFinal = $("#audio2")[0];
         audioFinal.volume = 1;
 
-        function initialValue(){
+        function initialValue() {
             for (var i = 0; i < numberEnemies; i++) {
                 var image = imgEnemies[numRandom(0, 20)];
                 enemies.push({ direccion: "", posX: numRandom(10, (canvas.width - 70)), posY: -numRandom(100 + pointCreateEnemy, 200 + pointCreateEnemy), width: 60, height: 45, img: image, lives: 2, colision: false });
                 pointCreateEnemy += 100;
             }
             player.lives = 3;
+            enemyFinal.lives = 4;
             player.img = $("#playerImg")[0];
             runGame = true;
             trackFinal = false;
@@ -90,7 +107,31 @@ $(document).ready(
             transparencia = 1;
             transicionInicialIn = 0;
             transicionInicialOut = 1;
+            speedEnemies = 2;
+            score = 0;
         }
+
+        function nextLevel(){
+            for (var i = 0; i < (numberEnemies * increment); i++) {
+                var image = imgEnemies[numRandom(0, 20)];
+                enemies.push({ direccion: "", posX: numRandom(10, (canvas.width - 70)), posY: -numRandom(100 + pointCreateEnemy, 200 + pointCreateEnemy), width: 60, height: 45, img: image, lives: 2, colision: false });
+                pointCreateEnemy += 100;
+            }
+            enemyFinal.lives = 4  * increment;
+            player.lives = 3;
+            player.img = $("#playerImg")[0];
+            enemyFinal.img = imgEnemyFinal;
+            runGame = true;
+            trackFinal = false;
+            cross = false;
+            transparencia = 1;
+            transicionInicialIn = 0;
+            transicionInicialOut = 1;
+            audio2.pause();
+            audio.play();
+            audio.volume = 1;
+        }
+        
 
         //CONTROLES
         function moveToActor(key) {
@@ -132,7 +173,7 @@ $(document).ready(
             contexto.restore;
         }
 
-        function setBackgroundPlay(img, img2, cross) {
+        function setBackgroundPlay(img, img2, cross, com) {
             contexto.save;
             contexto.drawImage(img, 0, 0, 600, 600);
             if (cross) {
@@ -140,10 +181,10 @@ $(document).ready(
                 contexto.drawImage(img, 0, 0, 600, 600);
                 contexto.globalAlpha = 1 - transparencia;
                 contexto.drawImage(img2, 0, 0, 600, 600);
-                if(transparencia>=0){
+                if (transparencia >= 0) {
                     transparencia -= 0.02;
                 }
-                contexto.globalAlpha = 1;                   
+                contexto.globalAlpha = 1;
             }
             contexto.restore;
         }
@@ -175,7 +216,7 @@ $(document).ready(
             for (var i = 0; i < array.length; i++) {
                 var element = array[i];
                 contexto.drawImage(element.img, element.posX, element.posY, element.width, element.height);
-                enemies[i].posY += 2;
+                enemies[i].posY += speedEnemies;
             }
             contexto.restore;
         }
@@ -200,7 +241,7 @@ $(document).ready(
                 var element = array[i];
                 if (element.posY < (800)) {
                     contexto.drawImage(element.img, element.posX, element.posY, element.width, element.height);
-                    lasersEnemy[i].posY += 10;
+                    lasersEnemy[i].posY += speedEnemies * 2;
                 } else {
                     lasersEnemy.splice(i, 1);
                 }
@@ -291,10 +332,12 @@ $(document).ready(
                             laser.colision = true;
                             lasers.splice(num, 1);
                             enemyFinal.lives -= 1;
+                            
                         } else {
                             enemyFinal.lives -= 1;
                             laser.colision = true;
                             lasers.splice(num, 1);
+                            score += 20;
                         }
 
                     }
@@ -372,56 +415,70 @@ $(document).ready(
 
         function enemyFinalInit() {
 
-            armyToEnemyFinal();
-            armyToPlayer();
-            if (enemies.length <= 0) {
-                cross = true;
-                if (audio.volume > 0.02) {
-                    audio.volume -= 0.02;
-                } else {
-                    audio.pause();
-                    if (!trackFinal) {
-                        audioFinal.play();
-                        trackFinal = true;
-                    }
-                }
-                contexto.save;
-
-                contexto.drawImage(enemyFinal.img, enemyFinal.posX, enemyFinal.posY, enemyFinal.width, enemyFinal.height);
-
-                if (enemyFinal.posY < 100) {
-                    enemyFinal.posY += 2;
-                } else {
-
-                    if (enemyFinal.direccion == 1) {
-                        if (enemyFinal.posX < (200)) {
-                            enemyFinal.posX += velocidad;
-                        } else {
-                            enemyFinal.direccion = -1;
-                            lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
-                            drawArmyEnemy(lasersEnemy);
-                        }
-                    }
-
-                    if (enemyFinal.direccion == -1) {
-                        if (enemyFinal.posX > -100) {
-                            enemyFinal.posX -= velocidad;
-                        } else {
-                            enemyFinal.direccion = 1;
-                            lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
-                            drawArmyEnemy(lasersEnemy);
-                        }
-                    }
-
-                    if (timerBossAtac > 500) {
-                        lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
-                        drawArmyEnemy(lasersEnemy);
-                        timerBossAtac = 0;
+            if(enemyFinal.lives > 0){
+                armyToEnemyFinal();
+                armyToPlayer();
+                if (enemies.length <= 0) {
+                    cross = true;
+                    if (audio.volume > 0.02) {
+                        audio.volume -= 0.02;
                     } else {
-                        timerBossAtac += 10;
+                        audio.pause();
+                        if (!trackFinal) {
+                            audioFinal.play();
+                            trackFinal = true;
+                        }
                     }
+                    contexto.save;
+    
+                    contexto.drawImage(enemyFinal.img, enemyFinal.posX, enemyFinal.posY, enemyFinal.width, enemyFinal.height);
+    
+                    if (enemyFinal.posY < 100) {
+                        enemyFinal.posY += 2;
+                    } else {
+                        
+                        if (enemyFinal.direccion == 1) {
+                            if (enemyFinal.posX < (300)) {
+                                enemyFinal.posX += 2 * increment;
+                            } else {
+                                enemyFinal.direccion = -1;
+                                lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
+                                drawArmyEnemy(lasersEnemy);
+                            }
+                        }
+    
+                        if (enemyFinal.direccion == -1) {
+                            if (enemyFinal.posX > -200) {
+                                enemyFinal.posX -= 2 * increment;
+                            } else {
+                                enemyFinal.direccion = 1;
+                                lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
+                                drawArmyEnemy(lasersEnemy);
+                            }
+                        }
+    
+                        if (timerBossAtac > 500) {
+                            lasersEnemy.push({ posX: enemyFinal.posX + (enemyFinal.width / 2), posY: 300, width: 85, height: 85, img: $("#laser2")[0] })
+                            drawArmyEnemy(lasersEnemy);
+                            timerBossAtac = 0;
+                        } else {
+                            timerBossAtac += 10;
+                        }
+                    }
+                    contexto.restore;
                 }
-                contexto.restore;
+            }else{
+                if (enemyFinal.posY > -350) {
+                    enemyFinal.posY -= 4;
+                    transparencia += 0.028;
+                    contexto.drawImage(enemyFinal.img, enemyFinal.posX, enemyFinal.posY, enemyFinal.width, enemyFinal.height);
+                    
+                }else{
+                    speedEnemies += 2;
+                    increment += 1;
+                    nextLevel();
+
+                }
             }
         }
 
@@ -463,30 +520,31 @@ $(document).ready(
 
         function scoreView() {
             contexto.save;
-            var backColor = "blue";
+            var backColor = "#2ecc71";
             var textColor = "white";
-            var btnColor = "green";
+            var btnColor = "black";
             contexto.fillStyle = backColor;
             contexto.fillRect(0, 0, 600, 600);
-
             contexto.fillStyle = btnColor;
             contexto.fillRect(buttons[3].x, buttons[3].y, buttons[3].width, buttons[3].height);
-            contexto.font = "20px arial";
+            contexto.font = "60px arial";
             contexto.fillStyle = textColor;
+            contexto.fillText(maxScore, 200, 300);
+            contexto.font = "20px arial";
             contexto.fillText(buttons[3].text, buttons[3].x + 20, buttons[3].y + 35);
             contexto.restore;
         }
 
         function settingView() {
             contexto.save;
-            var backColor = "blue";
+            var backColor = "#2ecc71";
             var textColor = "white";
-            var btnColor = "green";
+            var btnColor = "black";
 
             contexto.fillStyle = backColor;
             contexto.fillRect(0, 0, 600, 600);
 
-            contexto.fillStyle = btnColor;enemyF
+            contexto.fillStyle = btnColor;
             contexto.fillRect(buttons[4].x, buttons[4].y, buttons[4].width, buttons[4].height);
             contexto.font = "20px arial";
             contexto.fillStyle = textColor;
@@ -550,7 +608,7 @@ $(document).ready(
                 //canvas.removeEventListener('click', myClick);
                 //menuGame = false;
                 canvas.removeEventListener('click', myClick);
-                scoreView();
+                settingView();
                 canvas.addEventListener('click', settingClick);
 
 
@@ -579,7 +637,7 @@ $(document).ready(
                 canvas.removeEventListener('click', settingClick);
                 mainView();
                 canvas.addEventListener('click', myClick);
-                
+
             }
 
         }
@@ -601,7 +659,12 @@ $(document).ready(
                 enemyFinal.img = imgEnemyFinal;
                 lasersEnemy.splice(0, lasersEnemy.length);
                 clearInterval(game_loop);
-                
+                if (score > maxScore) {
+                    maxScore = score;
+                    localStorage.maxScore = maxScore;
+                    score = 0;
+                }
+
             }
 
         }
@@ -646,17 +709,17 @@ $(document).ready(
                 velocidadTexto += 2;
             }
 
-            if(posicionCaracter >= (textos.length -1)){
-                if(velocidadTexto < (300)){
-                   velocidadTexto += 2;
-                   
-                }else{
+            if (posicionCaracter >= (textos.length - 1)) {
+                if (velocidadTexto < (300)) {
+                    velocidadTexto += 2;
+
+                } else {
                     intro = false;
                 }
 
-                if(transicionInicialOut >= 0.02){
+                if (transicionInicialOut >= 0.02) {
                     transicionInicialOut -= 0.02;
-                } 
+                }
             }
 
             var maxWidth = 570;
@@ -666,7 +729,7 @@ $(document).ready(
 
             wrapText(txt, x, y, maxWidth, lineHeight);
             contexto.restore;
-            
+
         }
 
 
@@ -677,10 +740,11 @@ $(document).ready(
                 prepareNewFrame();
                 mainView();
                 canvas.addEventListener('click', myClick);
-                
-                if(enemies.length <(numberEnemies)){
+
+                if (enemies.length < (numberEnemies)) {
                     enemies.splice(0, numberEnemies);
                     initialValue();
+                    
                 }
             }
 
@@ -691,9 +755,9 @@ $(document).ready(
 
             }
 
-            if (runGame && !menuGame && !intro) { 
+            if (runGame && !menuGame && !intro) {
                 prepareNewFrame();
-                if(transicionInicialOut <1){
+                if (transicionInicialOut < 1) {
                     contexto.globalAlpha = transicionInicialOut;
                     transicionInicialOut += 0.02;
                 }
@@ -713,7 +777,7 @@ $(document).ready(
             if (!runGame && !menuGame) {
                 gameOverView();
                 canvas.addEventListener('click', gameOverClick);
-                
+
 
             }
         }
