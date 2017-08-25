@@ -3,6 +3,7 @@ package com.eduardo.chavez.game.Actores;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -25,6 +26,12 @@ public class GreenEnemy extends Actor {
     private Fixture fixture;
     private float randomSpeed;
 
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    private Rectangle bounds;
+
     public GreenEnemy(World world, Texture enemyTexture, float x, float y) {
         this.world = world;
         this.enemyTexture = enemyTexture;
@@ -34,20 +41,20 @@ public class GreenEnemy extends Actor {
         body = world.createBody(def);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.5f * 0.75f, 0.5f * 0.75f);
+        shape.setAsBox(0.5f * 0.65f, 0.5f * 0.65f);
         fixture = body.createFixture(shape, 3);
         fixture.setUserData("enemy");
         shape.dispose();
 
 
         setPosition((x - 0.5f) * PIXELS_IN_METER, y * PIXELS_IN_METER);
-        setSize(PIXELS_IN_METER * 0.75f, PIXELS_IN_METER * 0.75f);
+        setSize(PIXELS_IN_METER * 0.65f, PIXELS_IN_METER * 0.65f);
+        bounds=new Rectangle((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
     }
 
     @Override
     public void act(float delta) {
-        //randomSpeed = MathUtils.random(0,75);
-        //setX(getX() - randomSpeed * delta / PIXELS_IN_METER);
+
     }
 
     @Override

@@ -155,8 +155,9 @@ class GameScreen implements Screen {
         randomAmount = MathUtils.random(0, 15);
         randomHeight = MathUtils.random(1, 4);
         if (firstSpawn) {
-            position = 5;
+            position = 20;
             height = 1;
+            previousPos = 10;
         } else {
             position = previousPos + randomAmount;
             previousPos = position;
@@ -169,8 +170,8 @@ class GameScreen implements Screen {
     }
 
     private void spawnFloor() {
-        randomFloorPosition = MathUtils.random(0, 25);
-        randomFloorWidth = MathUtils.random(5, 12);
+        randomFloorPosition = MathUtils.random(0, 75);
+        randomFloorWidth = MathUtils.random(2, 12);
         randomFloorHeight = MathUtils.random(2, 3);
         if (firstSpawn) {
             floorHeight = 2;
@@ -190,6 +191,8 @@ class GameScreen implements Screen {
         }
         System.out.println("Floor " + String.valueOf(floorPosition));
         System.out.print("Actor " + String.valueOf(mainActor.getX()));
+
+
         firstSpawn = false;
     }
 
