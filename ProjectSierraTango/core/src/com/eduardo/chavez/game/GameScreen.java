@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -19,10 +20,9 @@ import com.eduardo.chavez.game.Actores.MainActorEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 import static com.eduardo.chavez.game.Constants.PIXELS_IN_METER;
-import static com.eduardo.chavez.game.Constants.PLAYER_SPEED;
 
 
 /**
@@ -38,8 +38,16 @@ class GameScreen implements Screen {
     private List<FloorEntity> floorList = new ArrayList<FloorEntity>();
     private List<GreenEnemy> enemyList = new ArrayList<GreenEnemy>();
 
-    private float currentNumber = 0f, min = 0, max = 100;
-    Random r = new Random();
+
+    private Texture textureFloor;
+    private Texture textureOverfloor;
+    private float randomFloorPosition, randomFloorWidth, floorPosition, floorHeight, lastFloorSpawntime, randomFloorHeight, previousFloorPosition;
+
+    //Enemy utils
+    Texture textureEnemy;
+    private boolean firstSpawn = true;
+    private float lastEnemySpawnTime, position, previousPos, randomAmount, randomHeight, height;
+
 
     public GameScreen(GameLoader gameLoader) {
         this.game = gameLoader;
@@ -87,34 +95,13 @@ class GameScreen implements Screen {
     @Override
     public void show() {
         Texture textureMainActor = game.getManager().get("actor/IDLE000.png");
-        Texture textureFloor = game.getManager().get("actor/floor.png");
-        Texture textureOverfloor = game.getManager().get("actor/overfloor.png");
-        Texture textureEnemy = game.getManager().get("actor/enemy1.png");
+        textureFloor = game.getManager().get("actor/floor.png");
+        textureOverfloor = game.getManager().get("actor/overfloor.png");
+        textureEnemy = game.getManager().get("actor/enemy1.png");
 
         mainActor = new MainActorEntity(world, textureMainActor, new Vector2(1.5f, 1.5f));
-
-        floorList.add(new FloorEntity(world, textureFloor, textureOverfloor, 0, 1000, 1));
-        floorList.add(new FloorEntity(world, textureFloor, textureOverfloor, 12, 10, 2));
-
-        for (int i = 0; i < 20 ; i++) {
-            float random = min + r.nextFloat() * (max - min);
-            enemyList.add(new GreenEnemy(world, textureEnemy, random, 1));
-        }
-
-
-
+        floorList.add(new FloorEntity(world, textureFloor, textureOverfloor, 0, 10000, 1));
         stage.addActor(mainActor);
-
-
-        for (FloorEntity floor : floorList) {
-            stage.addActor(floor);
-        }
-
-        for (GreenEnemy enemy : enemyList) {
-
-            stage.addActor(enemy);
-
-        }
 
     }
 
@@ -125,14 +112,85 @@ class GameScreen implements Screen {
         if (Gdx.app.getType() == Application.ApplicationType.Android)
             controller.draw();
 
-        if (mainActor.getX() > 150 && mainActor.isAlive()) {
+        if ((mainActor.getX() > stage.getWidth() / 2 && mainActor.isAlive())) {
             stage.getCamera().translate(mainActor.getCurrentSpeed() * delta * PIXELS_IN_METER, 0, 0);
         }
+
         stage.act();
+
+        if (firstSpawn) {
+            spawnEnemy();
+            spawnFloor();
+        }
+        if (lastEnemySpawnTime >= 1f) {
+            spawnEnemy();
+            lastEnemySpawnTime = 0;
+        } else {
+            lastEnemySpawnTime += delta;
+        }
+
+        if (lastFloorSpawntime >= 3.5f) {
+            spawnFloor();
+            lastFloorSpawntime = 0;
+        } else {
+            lastFloorSpawntime += delta;
+        }
+
+        for (FloorEntity floor : floorList) {
+            stage.addActor(floor);
+        }
+
+        for (GreenEnemy enemy : enemyList) {
+            stage.addActor(enemy);
+        }
+
         world.step(delta, 6, 2);
         handleInput();
         stage.draw();
 
+
+    }
+
+    private void spawnEnemy() {
+        randomAmount = MathUtils.random(0, 15);
+        randomHeight = MathUtils.random(1, 4);
+        if (firstSpawn) {
+            position = 5;
+            height = 1;
+        } else {
+            position = previousPos + randomAmount;
+            previousPos = position;
+            height = randomHeight;
+        }
+        enemyList.add(new GreenEnemy(world, textureEnemy, position, height));
+        System.out.println(String.valueOf(position));
+        firstSpawn = false;
+
+    }
+
+    private void spawnFloor() {
+        randomFloorPosition = MathUtils.random(0, 25);
+        randomFloorWidth = MathUtils.random(5, 12);
+        randomFloorHeight = MathUtils.random(2, 3);
+        if (firstSpawn) {
+            floorHeight = 2;
+            floorPosition = 12;
+        } else {
+            floorPosition = previousFloorPosition + randomFloorPosition;
+            previousFloorPosition = floorPosition;
+            floorHeight = randomFloorHeight;
+        }
+
+        if (floorHeight == 3) {
+            floorList.add(new FloorEntity(world, textureFloor, textureOverfloor, floorPosition + 1, randomFloorWidth - 2, floorHeight));
+            floorHeight = 2;
+            floorList.add(new FloorEntity(world, textureFloor, textureOverfloor, floorPosition, randomFloorWidth, floorHeight));
+        } else {
+            floorList.add(new FloorEntity(world, textureFloor, textureOverfloor, floorPosition, randomFloorWidth, floorHeight));
+        }
+        System.out.println("Floor " + String.valueOf(floorPosition));
+        System.out.print("Actor " + String.valueOf(mainActor.getX()));
+        firstSpawn = false;
     }
 
 

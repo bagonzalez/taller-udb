@@ -2,6 +2,7 @@ package com.eduardo.chavez.game.Actores;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -22,6 +23,7 @@ public class GreenEnemy extends Actor {
     private World world;
     private Body body;
     private Fixture fixture;
+    private float randomSpeed;
 
     public GreenEnemy(World world, Texture enemyTexture, float x, float y) {
         this.world = world;
@@ -32,19 +34,20 @@ public class GreenEnemy extends Actor {
         body = world.createBody(def);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.5f, 0.5f);
+        shape.setAsBox(0.5f * 0.75f, 0.5f * 0.75f);
         fixture = body.createFixture(shape, 3);
         fixture.setUserData("enemy");
         shape.dispose();
 
 
         setPosition((x - 0.5f) * PIXELS_IN_METER, y * PIXELS_IN_METER);
-        setSize(PIXELS_IN_METER, PIXELS_IN_METER);
+        setSize(PIXELS_IN_METER * 0.75f, PIXELS_IN_METER * 0.75f);
     }
 
     @Override
     public void act(float delta) {
-        //setX(getX() - 250 * delta);
+        //randomSpeed = MathUtils.random(0,75);
+        //setX(getX() - randomSpeed * delta / PIXELS_IN_METER);
     }
 
     @Override
