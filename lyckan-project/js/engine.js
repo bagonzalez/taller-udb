@@ -41,8 +41,8 @@ $(document).ready(
         if (typeof (Storage) !== "undefined") {
             if (localStorage.maxScore == "undefined") {
                 localStorage.setItem("maxScore", maxScore); 
+                
             }
-            
             maxScore = localStorage.getItem("maxScore");
         } else {
             // No soporta
@@ -739,11 +739,7 @@ $(document).ready(
                 enemyFinal.img = imgEnemyFinal;
                 lasersEnemy.splice(0, lasersEnemy.length);
                 clearInterval(game_loop);
-                if (score > maxScore) {
-                    maxScore = score;
-                    localStorage.maxScore = maxScore;
-                    score = 0;
-                }
+                
 
             }
 
@@ -820,12 +816,10 @@ $(document).ready(
                 prepareNewFrame();
                 mainView();
                 canvas.addEventListener('click', myClick);
-
-                if (enemies.length < (numberEnemies)) {
-                    enemies.splice(0, numberEnemies);
-                    initialValue();
+                enemies.splice(0, numberEnemies);
+                initialValue();
                     
-                }
+                
             }
 
             if (runGame && !menuGame && intro) {
@@ -859,6 +853,11 @@ $(document).ready(
             if (!runGame && !menuGame) {
                 gameOverView();
                 canvas.addEventListener('click', gameOverClick);
+                if (score > maxScore) {
+                    maxScore = score;
+                    localStorage.maxScore = maxScore;
+                    score = 0;
+                }
 
 
             }
