@@ -10,14 +10,15 @@ $(document).ready(
         var intro = true;
         var score = 0;
         var pointCreateEnemy = 100;
+        var pointCreatePower = 200;
         var buttons = Array(5);
         var timerBossAtac = 0;
         var maxScore = 0;
         buttons[0] = { x: 200, y: 300, width: 200, height: 60, text: "Iniciar" };
         buttons[1] = { x: 200, y: 400, width: 200, height: 60, text: "Score" };
-        buttons[2] = { x: 200, y: 500, width: 200, height: 60, text: "Configuracion" };
+        buttons[2] = { x: 200, y: 500, width: 200, height: 60, text: "Creditos" };
         buttons[3] = { x: 200, y: 500, width: 200, height: 60, text: "Regresar" };
-        buttons[4] = { x: 200, y: 500, width: 200, height: 60, text: "Ok" };
+        buttons[4] = { x: 200, y: 500, width: 200, height: 60, text: "<3" };
         var trackFinal = false;
         var imgEnemies = Array();
         var velocidadTexto = 0;
@@ -59,6 +60,7 @@ $(document).ready(
         //ACTORES
         var player = { direccion: "", posX: 250, posY: 510, width: 60, height: 45, img: null, lives: 3 };
         var enemies = Array();
+        var powers = Array();
 
 
         var laser1 = { direccion: "", posX: 0, posY: 500, width: 13, height: 54, img: null, colision: false };
@@ -91,11 +93,22 @@ $(document).ready(
         var audioFinal = $("#audio2")[0];
         audioFinal.volume = 1;
 
+        //POWER-UPS
+        var powerUpsActivate = false;
+
+        
+        
+
         function initialValue() {
             for (var i = 0; i < numberEnemies; i++) {
                 var image = imgEnemies[numRandom(0, 20)];
                 enemies.push({ direccion: "", posX: numRandom(10, (canvas.width - 70)), posY: -numRandom(100 + pointCreateEnemy, 200 + pointCreateEnemy), width: 60, height: 45, img: image, lives: 2, colision: false });
                 pointCreateEnemy += 100;
+            }
+
+            for (var i = 0; i < 2; i++) {
+                powers.push({ direccion: "", posX: numRandom(10, (canvas.width - 70)), posY: -numRandom(100 + pointCreatePower, 200 + pointCreatePower), width: 60, height: 45, img: $("#pw1")[0], lives: 2, colision: false });
+                pointCreatePower += 400;
             }
             player.lives = 3;
             enemyFinal.lives = 4;
@@ -111,12 +124,19 @@ $(document).ready(
             score = 0;
         }
 
+
         function nextLevel(){
             for (var i = 0; i < (numberEnemies * increment); i++) {
                 var image = imgEnemies[numRandom(0, 20)];
                 enemies.push({ direccion: "", posX: numRandom(10, (canvas.width - 70)), posY: -numRandom(100 + pointCreateEnemy, 200 + pointCreateEnemy), width: 60, height: 45, img: image, lives: 2, colision: false });
                 pointCreateEnemy += 100;
             }
+
+            for (var i = 0; i < 2; i++) {
+                powers.push({ direccion: "", posX: numRandom(10, (canvas.width - 70)), posY: -numRandom(100 + pointCreatePower, 200 + pointCreatePower), width: 60, height: 45, img: image, lives: 2, colision: false });
+                pointCreatePower += 400;
+            }
+
             enemyFinal.lives = 4  * increment;
             player.lives = 3;
             player.img = $("#playerImg")[0];
@@ -197,6 +217,11 @@ $(document).ready(
 
         function drawLives() {
             contexto.save;
+
+            if (powerUpsActivate) {
+                contexto.drawImage($("#pw1")[0], 400, 10, 37, 26);
+            }
+            
             if (player.lives > 2) {
                 contexto.drawImage($("#livesImg")[0], 440, 10, 37, 26);
             }
@@ -221,12 +246,28 @@ $(document).ready(
             contexto.restore;
         }
 
+        function drawPower(array) {
+            contexto.save;
+            for (var i = 0; i < array.length; i++) {
+                var element = array[i];
+                contexto.drawImage($("#pw1")[0], element.posX, element.posY, element.width, element.height);
+                powers[i].posY += speedEnemies;
+            }
+            contexto.restore;
+        }
+
         function drawArmy(array) {
             contexto.save;
             for (var i = 0; i < array.length; i++) {
                 var element = array[i];
                 if (element.posY > (-100)) {
-                    contexto.drawImage(element.img, element.posX, element.posY, element.width, element.height);
+                    if (powerUpsActivate) {
+                        contexto.drawImage($("#laserPw")[0], element.posX, element.posY, element.width + 10, element.height+10);
+                    }else{
+                        contexto.drawImage(element.img, element.posX, element.posY, element.width, element.height);
+                    }
+
+                    
                     lasers[i].posY -= 10;
                 } else {
                     lasers.splice(i, 1);
@@ -300,7 +341,15 @@ $(document).ready(
                                 enemies[index].lives -= 1;
                                 break;
                             } else {
-                                enemies[index].lives -= 1;
+                                if (powerUpsActivate) {
+                                    enemies[index].lives -= 2;
+                                    enemies[index].img = damage1;
+                                    laser.colision = true;
+                                    lasers.splice(num, 1);
+                                }else{
+                                    enemies[index].lives -= 1;
+                                }
+                                
                                 laser.colision = true;
                                 lasers.splice(num, 1);
                             }
@@ -332,6 +381,11 @@ $(document).ready(
                             laser.colision = true;
                             lasers.splice(num, 1);
                             enemyFinal.lives -= 1;
+                            if (powerUpsActivate) {
+                                enemyFinal.lives -= 2;
+                            }else{
+                                enemyFinal.lives -= 1
+                            }
                             
                         } else {
                             enemyFinal.lives -= 1;
@@ -352,7 +406,7 @@ $(document).ready(
             var num = 0;
             lasersEnemy.forEach(function (laser) {
                 if (!laser.colision) {
-
+                    
                     if (
                         laser.posX + laser.width > player.posX &&
                         laser.posY < player.posY + player.height &&
@@ -368,14 +422,16 @@ $(document).ready(
                         } else {
                             player.lives -= 1;
                             laser.colision = true;
-                            lasers.splice(num, 1);
+                            lasersEnemy.splice(num, 1);
+                            powerUpsActivate = false;
                         }
 
 
                     }
+                    num += 1;
 
                 } else {
-
+                    
                 }
             }, this);
         }
@@ -397,11 +453,29 @@ $(document).ready(
                         } else {
                             player.lives -= 1;
                             enemies[index].colision = true;
+                            powerUpsActivate= false;
                         }
 
                     }
                 }
 
+            }
+        }
+
+        function playerToPowerUps() {
+            for (var index = 0; index < powers.length; index++) {
+                var pwA = powers[index];
+                    if (
+                        player.posX + player.width > pwA.posX &&
+                        player.posX < pwA.posX + pwA.width &&
+                        player.posY < pwA.posY + pwA.height &&
+                        player.posY + player.height > pwA.posY && !pwA.colision
+                    ) {
+                            powerUpsActivate = true;
+                            powers[index].colision = true;
+
+                    }
+                
             }
         }
 
@@ -476,6 +550,7 @@ $(document).ready(
                 }else{
                     speedEnemies += 2;
                     increment += 1;
+                    pointCreatePower += 100;
                     nextLevel();
 
                 }
@@ -544,11 +619,16 @@ $(document).ready(
             contexto.fillStyle = backColor;
             contexto.fillRect(0, 0, 600, 600);
 
+            contexto.font = "40px arial";
+            contexto.fillStyle = btnColor;
+            contexto.fillText("Cesar Callejas - Lyckan", 80, 200);
+            contexto.fillText("Ardillo & Ardilla", 150, 300);
+
             contexto.fillStyle = btnColor;
             contexto.fillRect(buttons[4].x, buttons[4].y, buttons[4].width, buttons[4].height);
             contexto.font = "20px arial";
             contexto.fillStyle = textColor;
-            contexto.fillText(buttons[4].text, buttons[4].x + 20, buttons[4].y + 35);
+            contexto.fillText(buttons[4].text, buttons[4].x + 80, buttons[4].y + 35);
             contexto.restore;
         }
 
@@ -695,7 +775,7 @@ $(document).ready(
             contexto.save;
             contexto.globalAlpha = transicionInicialOut;
             var txt = "";
-            var textos = "En el año 2500 los humanos iniciaron una dura batalla contra una nueva raza que vieja por el espacio en busca de un planeta con sustento biológico para establecer una nueva colonia, los humanos desarrollaron suficiente tecnología y luchan para defender su hogar. Un joven soldado inicia la ultima batalla contra la gran flota de invasores.";
+            var textos = "En el año 2500 los humanos iniciaron una dura batalla contra una nueva raza que viaja por el espacio en busca de un planeta con sustento biológico para establecer una nueva colonia, los humanos desarrollaron suficiente tecnología y luchan para defender su hogar. Un joven soldado inicia la ultima batalla contra la gran flota de invasores.";
             var tempo = 6;
             contexto.font = "20px arial";
             contexto.fillStyle = "white";
@@ -765,11 +845,13 @@ $(document).ready(
                 exitEnemyScreen();
                 armyToEnemy();
                 playerToEnemy();
+                playerToPowerUps();
                 moveAndDraw();
                 drawPlayer(player.img, player.width, player.height,
                     player.posX, player.posY);
                 enemyFinalInit();
                 drawEnemies(enemies);
+                drawPower(powers);
                 animation_army();
                 drawScore(score);
                 drawLives();
