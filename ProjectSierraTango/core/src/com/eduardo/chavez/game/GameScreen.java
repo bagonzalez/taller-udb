@@ -189,8 +189,6 @@ class GameScreen implements Screen {
         mainMusic.setLooping(true);
         secondaryMusic.setLooping(true);
         creditsMusic.setLooping(true);
-
-        mainMusic.setVolume(0.75f);
         mainMusic.play();
 
     }
