@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <tittle>Brick Breaker UDB</tittle>
+  
     <style>
         * {
             padding:0; margin:0
@@ -14,7 +14,9 @@
 </head>
 
 <body>
-   <canvas id= "myCanvas" width="480" height="320"></canvas>
+   <canvas id= "myCanvas" width="640" height="520"></canvas>
+   <audio autoplay loop="loop"src="tema.mp3"></audio>
+
 
    <script>
    
@@ -32,8 +34,8 @@ var paddleWidth=75;
 var paddleX=(canvas.width-paddleWidth)/2;
 var rightPressed= false;
 var leftPressed=false;
-var brickRowCount = 1;
-var brickColumnCount = 5;
+var brickRowCount = 2;
+var brickColumnCount = 7;
 var brickWidth = 75;
 var brickHeight = 20;
 var brickPadding = 10;
@@ -41,18 +43,26 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var color = "#F78181"
 var score = 0;
-var lives = 3;
+var lives = 5;
+var nivel = 1;
 var bricks = [];
+var audio = new Audio();
+audio.canPlayType('tema')
 document.addEventListener("keydown",keyDownHandler,false);
 document.addEventListener("keyup",keyUpHandler,false);
+var v = document.getElementById("myaudio");
 
 
 function drawLives() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+    ctx.fillStyle = color;
+    ctx.fillText("Vidas: "+lives, canvas.width-65, 20);
 }
-
+function drawLevel() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = color ;
+    ctx.fillText("Nivel: "+nivel, canvas.width-360, 20);
+}
 function createBricks(){
 
 for(c=0; c<brickColumnCount; c++) {
@@ -72,8 +82,8 @@ for(c=0; c<brickColumnCount; c++) {
 
 function drawScore() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+score, 8, 20);
+    ctx.fillStyle = color;
+    ctx.fillText("Puntaje: "+score, 8, 20);
 }
 
 function keyDownHandler(e){
@@ -148,7 +158,7 @@ function collisionDetection() {
                     b.status = 0;
 
                 score++;
-                if (score == 50){
+                if (score == 140){
                 alert("Felicidades , ganaste");
                 document.location.reload();
                 } 
@@ -170,6 +180,7 @@ function draw(){
 	collisionDetection();
     drawScore();
     drawLives();
+    drawLevel();
  if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
@@ -183,7 +194,9 @@ function draw(){
         else {
             lives--;
             if(!lives) {
+                
                 alert("GAME OVER " + " Tu puntaje fue:" + score);
+                v.pause();
                 document.location.reload();
             }
             else {
@@ -207,40 +220,8 @@ function draw(){
 		 x=x+dx;
 	     y=y+dy;
 
-        if (score == 5 ){
-            for(c=0; c<brickColumnCount; c++) {
-        for(r=0; r<brickRowCount; r++) {
-            var b = bricks[c][r];
-            if(b.status == 0) {
-                    b.status = 1;
-
-                
-            }
-        }
-    }
-brickRowCount = 2;
-
-createBricks();
-  drawBricks();
-  drawBall();
-        }
-        if (score == 15 ){
-            for(c=0; c<brickColumnCount; c++) {
-        for(r=0; r<brickRowCount; r++) {
-            var b = bricks[c][r];
-            if(b.status == 0) {
-                    b.status = 1;
-
-                
-            }
-        }
-    }
-brickRowCount = 3;
-createBricks();
-  drawBricks();
-  drawBall();
-        }
-        if (score == 30 ){
+        if (score == 14 ){
+            nivel = 2;
             for(c=0; c<brickColumnCount; c++) {
         for(r=0; r<brickRowCount; r++) {
             var b = bricks[c][r];
@@ -252,6 +233,41 @@ createBricks();
         }
     }
 brickRowCount = 4;
+
+createBricks();
+  drawBricks();
+  drawBall();
+        }
+        if (score ==  42){
+            nivel = 3;
+            for(c=0; c<brickColumnCount; c++) {
+        for(r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(b.status == 0) {
+                    b.status = 1;
+
+                
+            }
+        }
+    }
+brickRowCount = 6;
+createBricks();
+  drawBricks();
+  drawBall();
+        }
+        if (score == 84 ){
+            nivel = 4;
+            for(c=0; c<brickColumnCount; c++) {
+        for(r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(b.status == 0) {
+                    b.status = 1;
+
+                
+            }
+        }
+    }
+brickRowCount = 8;
 createBricks();
   drawBricks();
   drawBall();
