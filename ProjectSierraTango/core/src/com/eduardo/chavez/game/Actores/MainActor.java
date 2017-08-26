@@ -1,6 +1,7 @@
 package com.eduardo.chavez.game.Actores;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -122,6 +123,7 @@ public class MainActor extends Actor {
 
     @Override
     public void act(float delta) {
+
         if (jumping) {
             body.applyForceToCenter(0, -IMPULSE_JUMP * 0.5f, true);
         }
@@ -131,7 +133,7 @@ public class MainActor extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         stateTime += Gdx.graphics.getDeltaTime();
-        currentFrame = walkAnimation.getKeyFrame(stateTime,keepPlaying);
+        currentFrame = walkAnimation.getKeyFrame(stateTime, keepPlaying);
         setPosition((body.getPosition().x - 0.5f) * PIXELS_IN_METER,
                 (body.getPosition().y - 0.5f) * PIXELS_IN_METER);
 

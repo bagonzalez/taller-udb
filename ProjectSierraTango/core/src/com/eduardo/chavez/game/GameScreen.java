@@ -400,6 +400,13 @@ class GameScreen implements Screen {
                 mainActor.standBy();
             }
         }
+        if (!(controller.isRightPressed() || controller.isLeftPressed())
+                && (Gdx.input.justTouched() && (Gdx.app.getType() == Application.ApplicationType.Android))) {
+            if (mainActor.isAlive()) {
+                mainActor.jump();
+            }
+        }
+
         if (controller.isUpPressed()) {
             if (mainActor.isAlive()) {
                 mainActor.jump();

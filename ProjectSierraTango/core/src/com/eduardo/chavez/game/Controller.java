@@ -75,13 +75,16 @@ public class Controller {
         final Table table = new Table();
         table.left().bottom();
 
+        //final Table table1 = new Table();
+        //table1.right().bottom();
+
         Texture arrowUp = game.getManager().get(AssetsLocation.ARROW_UP);
         Texture arrowDown = game.getManager().get(AssetsLocation.ARROW_DOWN);
         Texture arrowLeft = game.getManager().get(AssetsLocation.ARROW_LEFT);
         Texture arrowRight = game.getManager().get(AssetsLocation.ARROW_RIGHT);
 
         Image upImg = new Image(arrowUp);
-        upImg.setSize(50, 50);
+        upImg.setSize(75, 75);
 
         upImg.addListener(new InputListener() {
             @Override
@@ -114,7 +117,7 @@ public class Controller {
         });
 
         Image leftImg = new Image(arrowLeft);
-        leftImg.setSize(50, 50);
+        leftImg.setSize(75, 75);
         leftImg.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -130,7 +133,7 @@ public class Controller {
 
 
         final Image rightImg = new Image(arrowRight);
-        rightImg.setSize(50, 50);
+        rightImg.setSize(75, 75);
         rightImg.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -144,19 +147,32 @@ public class Controller {
             }
         });
 
-        table.add();
-        table.add(upImg).size(upImg.getWidth(), upImg.getHeight());
-        table.add();
-        table.row().pad(5, 5, 5, 5);
+
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table.add();
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
+        table.row().pad(5, 5, 5, 5);
+        table.add();
+        table.add();
+        table.add();
         table.row().padBottom(5);
         table.add();
-        table.add(downImg).size(downImg.getWidth(), downImg.getHeight());
+        //table.add(downImg).size(downImg.getWidth(), downImg.getHeight());
+        table.add();
         table.add();
 
+        /**
+        table1.row().pad(5, 5, 5, 5);
+        table1.add();
+        table1.add(upImg).size(upImg.getWidth(), upImg.getHeight());
+        table1.add();
+        table1.row().padBottom(5);
+        table1.add();
+        table1.add();
+        table1.add();
+         **/
         stage.addActor(table);
+
     }
 
     public void draw() {
