@@ -2,6 +2,7 @@ package com.eduardo.chavez.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
@@ -12,16 +13,20 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 class MainMenuScreen implements Screen {
     final GameLoader gameLoader;
     OrthographicCamera camera;
+    Music introMusic;
 
     public MainMenuScreen(GameLoader gameLoader) {
         this.gameLoader = gameLoader;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+        introMusic = gameLoader.getManager().get(AssetsLocation.MUSIC_MENU);
+        introMusic.setLooping(true);
+
     }
 
     @Override
     public void show() {
-
+        introMusic.play();
     }
 
     @Override
@@ -52,7 +57,7 @@ class MainMenuScreen implements Screen {
 
     @Override
     public void pause() {
-
+        introMusic.pause();
     }
 
     @Override
@@ -62,11 +67,11 @@ class MainMenuScreen implements Screen {
 
     @Override
     public void hide() {
-
+        introMusic.pause();
     }
 
     @Override
     public void dispose() {
-
+        introMusic.dispose();
     }
 }

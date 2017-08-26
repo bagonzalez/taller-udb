@@ -7,7 +7,7 @@ import com.eduardo.chavez.game.GameLoader;
 public class DesktopLauncher {
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title = "Test Game One";
+        config.title = "Impossibru";
         config.width = 800;
         config.height = 480;
         new LwjglApplication(new GameLoader(), config);

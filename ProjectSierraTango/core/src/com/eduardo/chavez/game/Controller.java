@@ -29,6 +29,7 @@ public class Controller {
         viewport = new FitViewport(800, 480, camera);
         stage = new Stage(viewport, gameB.batch);
 
+
         stage.addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
@@ -74,7 +75,12 @@ public class Controller {
         final Table table = new Table();
         table.left().bottom();
 
-        Image upImg = new Image(new Texture("upArrow.png"));
+        Texture arrowUp = game.getManager().get(AssetsLocation.ARROW_UP);
+        Texture arrowDown = game.getManager().get(AssetsLocation.ARROW_DOWN);
+        Texture arrowLeft = game.getManager().get(AssetsLocation.ARROW_LEFT);
+        Texture arrowRight = game.getManager().get(AssetsLocation.ARROW_RIGHT);
+
+        Image upImg = new Image(arrowUp);
         upImg.setSize(50, 50);
 
         upImg.addListener(new InputListener() {
@@ -92,7 +98,7 @@ public class Controller {
         });
 
 
-        Image downImg = new Image(new Texture("downArrow.png"));
+        Image downImg = new Image(arrowDown);
         downImg.setSize(50, 50);
         downImg.addListener(new InputListener() {
             @Override
@@ -107,7 +113,7 @@ public class Controller {
             }
         });
 
-        Image leftImg = new Image(new Texture("leftArrow.png"));
+        Image leftImg = new Image(arrowLeft);
         leftImg.setSize(50, 50);
         leftImg.addListener(new InputListener() {
             @Override
@@ -123,7 +129,7 @@ public class Controller {
         });
 
 
-        final Image rightImg = new Image(new Texture("rightArrow.png"));
+        final Image rightImg = new Image(arrowRight);
         rightImg.setSize(50, 50);
         rightImg.addListener(new InputListener() {
             @Override
