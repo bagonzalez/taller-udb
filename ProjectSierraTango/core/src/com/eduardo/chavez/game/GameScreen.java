@@ -83,7 +83,7 @@ class GameScreen implements Screen {
         stage = new Stage(new FitViewport(800, 480));
         world = new World(new Vector2(0, -10), true);
         controller = new Controller(game);
-        stage.setDebugAll(true);
+
 
         world.setContactListener(new ContactListener() {
             private boolean areCollided(Contact contact, Object userA, Object userB) {
