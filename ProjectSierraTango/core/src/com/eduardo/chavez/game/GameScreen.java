@@ -97,14 +97,16 @@ class GameScreen implements Screen {
                 }
 
                 if (areCollided(contact, "player", "enemy")) {
-                    if (canDie) {
-                        livesAmount--;
-                        substractHeart = true;
-                        canDie = false;
-                        System.out.println("vidas" + String.valueOf(livesAmount));
-                        if (livesAmount == 0) {
-                            mainActor.setAlive(false);
-                            mainActor.setKeepPlaying(false);
+                    if (mainActor.isAlive()) {
+                        if (canDie) {
+                            livesAmount--;
+                            substractHeart = true;
+                            canDie = false;
+                            System.out.println("vidas" + String.valueOf(livesAmount));
+                            if (livesAmount == 0) {
+                                mainActor.setAlive(false);
+                                mainActor.setKeepPlaying(false);
+                            }
                         }
                     }
                 }
@@ -187,6 +189,7 @@ class GameScreen implements Screen {
         secondaryMusic.setLooping(true);
         creditsMusic.setLooping(true);
 
+        mainMusic.setVolume(0.75f);
         mainMusic.play();
 
     }
@@ -202,7 +205,7 @@ class GameScreen implements Screen {
         }
         game.batch.begin();
         game.batch.draw(background, 0, 0, stage.getCamera().viewportWidth, stage.getCamera().viewportHeight);
-        game.font.draw(game.batch, "Score actual: " + scoreCounter, 10, 480);
+        game.font.draw(game.batch, "Puntaje actual: " + scoreCounter, 10, stage.getCamera().viewportHeight - 20);
         for (Rectangle heart : hearts) {
             game.batch.draw(heartIcon, heart.x, heart.y);
         }
@@ -284,10 +287,10 @@ class GameScreen implements Screen {
             secondaryMusic.stop();
             creditsMusic.play();
             game.batch.begin();
-            game.font.draw(game.batch, "GAME OVER " + scoreCounter, stage.getCamera().viewportWidth / 2 - PIXELS_IN_METER, stage.getCamera().viewportHeight / 2);
+            game.font.draw(game.batch, "GAME OVER \nTu puntaje: " + scoreCounter, stage.getCamera().viewportWidth / 2 - PIXELS_IN_METER, stage.getCamera().viewportHeight / 2);
             game.batch.end();
 
-            if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
+            if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
                 game.setScreen(new MainMenuScreen(game));
             }
 
@@ -437,6 +440,9 @@ class GameScreen implements Screen {
         stage.dispose();
         mainActor.detach();
         mainActor.remove();
+        mainMusic.stop();
+        secondaryMusic.stop();
+        creditsMusic.stop();
         mainMusic.dispose();
         secondaryMusic.dispose();
         creditsMusic.dispose();
