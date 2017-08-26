@@ -43,7 +43,7 @@ class MainMenuScreen implements Screen {
         gameLoader.batch.setProjectionMatrix(camera.combined);
 
         gameLoader.batch.begin();
-        gameLoader.font.draw(gameLoader.batch, "Bienvenido al Impossibru", 100, 150);
+        gameLoader.font.draw(gameLoader.batch, "Bienvenido a Impossibru", 100, 150);
         gameLoader.font.draw(gameLoader.batch, "Toca para iniciar", 100, 100);
         gameLoader.batch.draw(iconMenu, camera.viewportWidth / 2, camera.viewportHeight - 300, 200, 200);
         gameLoader.batch.end();
@@ -67,7 +67,7 @@ class MainMenuScreen implements Screen {
 
     @Override
     public void resume() {
-
+        introMusic.play();
     }
 
     @Override
@@ -77,6 +77,6 @@ class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        introMusic.dispose();
+        introMusic.pause();
     }
 }

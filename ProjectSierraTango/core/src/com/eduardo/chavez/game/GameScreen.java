@@ -83,6 +83,7 @@ class GameScreen implements Screen {
         stage = new Stage(new FitViewport(800, 480));
         world = new World(new Vector2(0, -10), true);
         controller = new Controller(game);
+        stage.setDebugAll(true);
 
         world.setContactListener(new ContactListener() {
             private boolean areCollided(Contact contact, Object userA, Object userB) {
@@ -215,11 +216,14 @@ class GameScreen implements Screen {
         handleInput();
         if (mainActor.isAlive()) {
 
-            if (deadTimer >= 1.25f && (!canDie)) {
-                canDie = true;
-                deadTimer = 0;
-            } else {
-                deadTimer += delta;
+            if (!canDie) {
+                if (deadTimer >= 1.25f) {
+                    canDie = true;
+                    System.out.println("Now can die");
+                    deadTimer = 0;
+                } else {
+                    deadTimer += delta;
+                }
             }
 
             if (lastScoreTime >= 2.5f && (mainActor.getCurrentSpeed() == 5)) {
@@ -400,13 +404,15 @@ class GameScreen implements Screen {
                 mainActor.standBy();
             }
         }
-        if (!(controller.isRightPressed() || controller.isLeftPressed())
-                && (Gdx.input.justTouched() && (Gdx.app.getType() == Application.ApplicationType.Android))) {
-            if (mainActor.isAlive()) {
-                mainActor.jump();
-            }
-        }
 
+        /**
+         if (!(controller.isRightPressed() || controller.isLeftPressed())
+         && (Gdx.input.justTouched() && (Gdx.app.getType() == Application.ApplicationType.Android))) {
+         if (mainActor.isAlive()) {
+         mainActor.jump();
+         }
+         }
+         **/
         if (controller.isUpPressed()) {
             if (mainActor.isAlive()) {
                 mainActor.jump();
@@ -447,12 +453,9 @@ class GameScreen implements Screen {
         stage.dispose();
         mainActor.detach();
         mainActor.remove();
-        mainMusic.stop();
-        secondaryMusic.stop();
-        creditsMusic.stop();
-        mainMusic.dispose();
-        secondaryMusic.dispose();
-        creditsMusic.dispose();
+        mainMusic.pause();
+        secondaryMusic.pause();
+        creditsMusic.pause();
 
         for (FloorEntity floor : floorList) {
             floor.detach();
@@ -475,9 +478,9 @@ class GameScreen implements Screen {
         stage.dispose();
         mainActor.detach();
         mainActor.remove();
-        mainMusic.dispose();
-        secondaryMusic.dispose();
-        creditsMusic.dispose();
+        mainMusic.pause();
+        secondaryMusic.pause();
+        creditsMusic.pause();
 
         for (FloorEntity floor : floorList) {
             floor.detach();

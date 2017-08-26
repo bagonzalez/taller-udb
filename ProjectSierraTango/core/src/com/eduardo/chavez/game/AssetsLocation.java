@@ -17,10 +17,10 @@ public class AssetsLocation {
     public static final String GAME_BACKGROUND = "entities/background.png";
     public static final String MAIN_ACTOR_ANIMATED = "entities/animationsheet.png";
 
-    public static final String MUSIC_MENU = "sound/menusong.wav";
-    public static final String MUSIC_MAIN = "sound/mainmusic.wav";
-    public static final String MUSIC_SECOND = "sound/secondmusic.wav";
-    public static final String MUSIC_CREDITS = "sound/creditssong.wav";
+    public static final String MUSIC_MENU = "sound/menusong.ogg";
+    public static final String MUSIC_MAIN = "sound/mainmusic.ogg";
+    public static final String MUSIC_SECOND = "sound/secondmusic.ogg";
+    public static final String MUSIC_CREDITS = "sound/creditssong.ogg";
 
     public static final String GAME_BACKGROUND_PARALLAX = "entities/bgparallax.png";
     public static final String GAME_HEART = "entities/heart.png";

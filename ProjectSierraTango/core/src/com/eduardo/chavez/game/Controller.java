@@ -75,8 +75,8 @@ public class Controller {
         final Table table = new Table();
         table.left().bottom();
 
-        //final Table table1 = new Table();
-        //table1.right().bottom();
+        final Table table1 = new Table();
+        table1.setPosition(stage.getWidth() - 80,45);
 
         Texture arrowUp = game.getManager().get(AssetsLocation.ARROW_UP);
         Texture arrowDown = game.getManager().get(AssetsLocation.ARROW_DOWN);
@@ -147,21 +147,16 @@ public class Controller {
             }
         });
 
-
+        table.row().pad(5, 5, 5, 5);
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table.add();
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-        table.row().pad(5, 5, 5, 5);
-        table.add();
-        table.add();
-        table.add();
         table.row().padBottom(5);
         table.add();
         //table.add(downImg).size(downImg.getWidth(), downImg.getHeight());
         table.add();
         table.add();
 
-        /**
         table1.row().pad(5, 5, 5, 5);
         table1.add();
         table1.add(upImg).size(upImg.getWidth(), upImg.getHeight());
@@ -170,8 +165,9 @@ public class Controller {
         table1.add();
         table1.add();
         table1.add();
-         **/
+
         stage.addActor(table);
+        stage.addActor(table1);
 
     }
 
