@@ -8,7 +8,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/PongRevenge.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="358 415">
+  <widget class="Gtk.Window" id="PongRevenge.MainWindow" design-size="358 415">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -40,12 +40,13 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button4">
+          <widget class="Gtk.Button" id="playBtn">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Play</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="playInit" />
           </widget>
           <packing>
             <property name="Position">2</property>
@@ -67,7 +68,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button1">
+          <widget class="Gtk.Button" id="connectBtn">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
@@ -92,6 +93,19 @@
             <property name="Fill">False</property>
           </packing>
         </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="PongRevenge.GameWindow" design-size="658 446">
+    <property name="MemberName" />
+    <property name="WidthRequest">500</property>
+    <property name="HeightRequest">400</property>
+    <property name="Title" translatable="yes">GameWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <property name="Resizable">False</property>
+    <child>
+      <widget class="Gtk.DrawingArea" id="drawArea">
+        <property name="MemberName" />
       </widget>
     </child>
   </widget>

@@ -1,6 +1,8 @@
 ﻿using System;
 using Gtk;
 
+namespace PongRevenge
+{
 public partial class MainWindow: Gtk.Window
 {
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
@@ -13,4 +15,12 @@ public partial class MainWindow: Gtk.Window
 		Application.Quit ();
 		a.RetVal = true;
 	}
+
+	protected void playInit (object sender, EventArgs e)
+	{
+		GameWindow win = new GameWindow ();
+		win.Show();
+			this.Destroy();
+	}
+}
 }
