@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{F74453B7-3C7F-4CAD-8C9B-C8DC28A249B5}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.ItemProperties.pingpongproject__ed PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="pingpongproject_ed\MainGame.cs">
+    <Files>
+      <File FileName="pingpongproject_ed\MainGame.cs" Line="21" Column="1" />
+      <File FileName="pingpongproject_ed\SettingsForm.cs" Line="9" Column="14" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+</Properties>

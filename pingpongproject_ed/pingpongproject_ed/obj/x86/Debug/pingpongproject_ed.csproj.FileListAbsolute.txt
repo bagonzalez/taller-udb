@@ -1,0 +1,17 @@
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\pingpongproject_ed.exe
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\pingpongproject_ed.pdb
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\atk-sharp.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\gdk-sharp.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\glade-sharp.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\glib-sharp.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\gtk-sharp.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\Mono.Cairo.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\Mono.Posix.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\pango-sharp.dll
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\gdk-sharp.pdb
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\glib-sharp.pdb
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\glade-sharp.pdb
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\pango-sharp.pdb
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\bin\Debug\atk-sharp.pdb
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\obj\x86\Debug\pingpongproject_ed.exe
+C:\Users\Eduardo\Documents\Unity\pingpongproject_ed\pingpongproject_ed\obj\x86\Debug\pingpongproject_ed.pdb
