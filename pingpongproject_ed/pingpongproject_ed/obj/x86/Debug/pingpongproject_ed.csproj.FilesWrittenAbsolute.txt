@@ -1,6 +1,0 @@
-/Users/usuario/Documents/GameProject/pingpongproject_ed/pingpongproject_ed/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/Users/usuario/Documents/GameProject/pingpongproject_ed/pingpongproject_ed/obj/x86/Debug/pingpongproject_ed.gtk-gui.gui.stetic
-/Users/usuario/Documents/GameProject/pingpongproject_ed/pingpongproject_ed/bin/Debug/pingpongproject_ed.pdb
-/Users/usuario/Documents/GameProject/pingpongproject_ed/pingpongproject_ed/bin/Debug/pingpongproject_ed.exe
-/Users/usuario/Documents/GameProject/pingpongproject_ed/pingpongproject_ed/obj/x86/Debug/pingpongproject_ed.exe
-/Users/usuario/Documents/GameProject/pingpongproject_ed/pingpongproject_ed/obj/x86/Debug/pingpongproject_ed.pdb
