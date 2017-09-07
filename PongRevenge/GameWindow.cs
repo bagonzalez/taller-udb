@@ -17,6 +17,11 @@ namespace PongRevenge
 		int radioBola = 10;
 		int diametroBola = 0;
 		bool gameActive = true;
+		int yPlayer1 = 0;
+		int xPlayer1 = -270;
+		int yPlayer2 = 0;
+		int xPlayer2 = 260;
+
 
 		//TODO: El ancho y el alto son la mitad de la altura real
 		//porque el eje x & y en 0 se encuentra en el centro
@@ -27,7 +32,8 @@ namespace PongRevenge
 
 
 		public GameWindow () : base (Gtk.WindowType.Toplevel)
-		{
+		{	
+			KeyPressEvent += KeyPress;
 			SetDefaultSize(width * 2, height * 2);
 			diametroBola = radioBola * 2;
 			SetPosition(WindowPosition.Center);
@@ -35,6 +41,28 @@ namespace PongRevenge
 			Thread loopFrames = new Thread (new ThreadStart (DoBackgroundWork));
 			loopFrames.Start ();
 
+		}
+
+		[GLib.ConnectBefore]
+		protected void KeyPress(object sender, KeyPressEventArgs args)
+		{
+			
+			if (args.Event.Key == Gdk.Key.Down) {
+				yPlayer1   += 10;
+			}
+
+			if (args.Event.Key == Gdk.Key.Up) {
+				yPlayer1 -= 10;
+			}
+
+
+		}
+
+		protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+		{
+			KeyPressEvent -= KeyPress;
+			Application.Quit();
+			a.RetVal = true;
 		}
 
 		void newMakeFrame(){
@@ -58,13 +86,13 @@ namespace PongRevenge
 
 			//TODO:player1
 			cr.SetSourceRGB(0.1, 0.8, 0);
-			cr.Rectangle(-width+30, 0, 10, 40);
+			cr.Rectangle(xPlayer1, yPlayer1, 10, 40);
 			cr.StrokePreserve();
 			cr.Fill();
 
 			//TODO:player2
 			cr.SetSourceRGB(1, 1, 0);
-			cr.Rectangle(width-40, 0, 10, 40);
+			cr.Rectangle(xPlayer2, yPlayer2, 10, 40);
 			cr.StrokePreserve();
 			cr.Fill();
 
@@ -91,8 +119,15 @@ namespace PongRevenge
 				direccionVertical = -1;
 			}
 
-			if(y < -height + diametroBola){
+			if(y < -height + diametroBola
+			)
+			{
 				direccionVertical = 1;
+			}
+
+			if (x < xPlayer1 + 5 &&(y < yPlayer1 - 20 && y > yPlayer1 + 20)
+			) {
+				
 			}
 
 			x += direccionHorizontal*velocidad;
@@ -120,16 +155,25 @@ namespace PongRevenge
 					direccionVertical = 1;
 				}
 
+				if (x < xPlayer1 + 20 &&(y > yPlayer1 - 30 && y < yPlayer1 + 30)
+				) {
+					direccionHorizontal = 1;
+				}
+
+				if (x > xPlayer2 - 20  &&(y > yPlayer2 - 30 && y < yPlayer2 + 30)
+				) {
+					direccionHorizontal = -1;
+				}
+
 				x += direccionHorizontal*velocidad;
 				y += direccionVertical*velocidad;
+				yPlayer2 = y;
 				Gtk.Application.Invoke (delegate {newMakeFrame ();});
+
 				Console.WriteLine(x+","+ y);
 			} while (gameActive);
 		}
-
-
-
-
+			
 			
 	}
 }
