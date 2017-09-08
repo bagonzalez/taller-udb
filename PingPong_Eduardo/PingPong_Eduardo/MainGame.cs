@@ -12,15 +12,14 @@ namespace PingPong_Eduardo
         int height = 240;
         int ballX;
         int ballY;
-        int player1X = 0, player1Y = 0;
+        int player1X, player1Y, player2X, player2Y;
+        int playersHeight = 60, playersWidth = 10;
         int ballSpeed = 10;
-        int BallForce = 3;
         int ballRadius = 10, ballDiameter = 20;
 		int Speed_Player = 10;                           //Dont change these, change them from the settings page
 		int Speed_Enemy = 10;
         int ballHorizontalDirection = 1, ballVerticalDirection = 1;
-        Boolean Player_Up, Player_Down = false;         //Booleans to see if player is going up or down
-        Boolean BallGoingLeft = true;                   //Is the ball going left or right?
+        Boolean Player_Up, Player_Down = false;        //Booleans to see if player is going up or down
         Boolean renderGame = true;
         Boolean GameOn = false;//Is the game on or paused
 
@@ -43,7 +42,7 @@ namespace PingPong_Eduardo
         [GLib.ConnectBefore]
         private void KeyRelease(object o, KeyReleaseEventArgs args)
         {
-			Console.WriteLine(args.Event.Key);
+			//Console.WriteLine(args.Event.Key);
 
 			switch (args.Event.Key)      //Regular key input, if press the right keys it moves in its direction
 			{
@@ -61,7 +60,7 @@ namespace PingPong_Eduardo
         [GLib.ConnectBefore]
         private void Keypress(object o, KeyPressEventArgs args)
         {
-            Console.WriteLine(args.Event.Key);
+            //Console.WriteLine(args.Event.Key);
 
             switch (args.Event.Key)      //Regular key input, if press the right keys it moves in its direction
 			{
@@ -93,6 +92,8 @@ namespace PingPong_Eduardo
 
         void OnExpose(object sender, ExposeEventArgs args)
         {
+            player1X = -width + 60;
+            player2X = width - 60;
             DrawingArea drawingAr = (DrawingArea)sender;
             Cairo.Context cairo = Gdk.CairoHelper.Create(drawingAr.GdkWindow);
             cairo.Translate(width, height);
@@ -102,15 +103,23 @@ namespace PingPong_Eduardo
             cairo.StrokePreserve();
             cairo.Fill();
 
+            //BALL
+			cairo.SetSourceRGB(0, 0.5, 1);
+			cairo.Arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
+			cairo.StrokePreserve();
+			cairo.Fill();
+
+            //PLAYER 1
             cairo.SetSourceRGB(0.6, 0.5, 0);
-            cairo.Rectangle(-width+60, player1Y, 10, 40);
+            cairo.Rectangle(player1X, player1Y, playersWidth, playersHeight);
             cairo.StrokePreserve();
             cairo.Fill();
 
-            cairo.SetSourceRGB(0, 0.5, 1);
-            cairo.Arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
-            cairo.StrokePreserve();
-            cairo.Fill();
+			//PLAYER 2
+			cairo.SetSourceRGB(0.6, 0.5, 0);
+            cairo.Rectangle(player2X, player2Y, playersWidth, playersHeight);
+			cairo.StrokePreserve();
+			cairo.Fill();
 
             ((IDisposable)cairo.GetTarget()).Dispose();
             ((IDisposable)cairo).Dispose();
@@ -133,6 +142,7 @@ namespace PingPong_Eduardo
 
 
         void move_ball(){
+            //Begin, Box collisions
 			if (ballX > width - ballDiameter)
 			{
 				ballHorizontalDirection = -1;
@@ -152,9 +162,41 @@ namespace PingPong_Eduardo
 			{
 				ballVerticalDirection = 1;
 			}
+			//End, Box collisions
+            if (DidCollideWithPlayer2())
+			{
+				ballHorizontalDirection = -1;
+			}
 
+            if (DidCollideWithPlayer1())
+			{
+				ballHorizontalDirection = 1;
+			}
+            //Begin Player collisions
 			ballX += ballHorizontalDirection * ballSpeed;
 			ballY += ballVerticalDirection * ballSpeed;
+        }
+
+        private bool DidCollideWithPlayer2(){
+            bool Collision = false;
+            if ((ballX > player2X) &&
+                (ballY >= player2Y) &&
+                (ballY <= player2Y + playersHeight))
+            {
+                Collision = true;
+            }
+            return Collision;
+        }
+
+        private bool DidCollideWithPlayer1(){
+            bool Collision = false;
+            if ((ballX < player1X + playersWidth) &&
+                (ballY >= player1Y) &&
+                (ballY <= player1Y + playersHeight))
+            {
+                Collision = true;
+            }
+            return Collision;
         }
 
 
@@ -167,16 +209,16 @@ namespace PingPong_Eduardo
                     Speed_Player = -10;
                 }
                 player1Y += Speed_Player;
-                Console.WriteLine(player1Y);
+                //Console.WriteLine(player1Y);
             }
             if(Player_Down){
-                if(player1Y > height -10){
+                if(player1Y > height -50){
                     Speed_Player = 0;
                 } else{
                 Speed_Player = 10;
                     }
                 player1Y += Speed_Player;
-                Console.WriteLine(player1Y);
+                //Console.WriteLine(player1Y);
             }
 
 
