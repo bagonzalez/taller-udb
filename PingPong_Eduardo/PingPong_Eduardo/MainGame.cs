@@ -17,8 +17,9 @@ namespace PingPong_Eduardo
         int ballSpeed = 10;
         int ballRadius = 10, ballDiameter = 20;
 		int Speed_Player = 10;                           //Dont change these, change them from the settings page
-		int Speed_Enemy = 10;
+		int Speed_Enemy = 8;
         int ballHorizontalDirection = 1, ballVerticalDirection = 1;
+        int scorePlayer1 = 0, scorePlayer2 = 0;
         Boolean Player_Up, Player_Down = false;        //Booleans to see if player is going up or down
         Boolean renderGame = true;
         Boolean GameOn = false;//Is the game on or paused
@@ -121,6 +122,15 @@ namespace PingPong_Eduardo
 			cairo.StrokePreserve();
 			cairo.Fill();
 
+			//Scores
+			cairo.SetSourceRGB(1, 1, 1);
+            cairo.SelectFontFace("Purisa", FontSlant.Normal, FontWeight.Bold);
+            cairo.SetFontSize(13);
+            cairo.MoveTo(-width+10, -height+30);
+            cairo.ShowText("Player 1: " + scorePlayer1);
+            cairo.MoveTo(-width+10, -height + 60);
+            cairo.ShowText("Player 2: " + scorePlayer2);
+
             ((IDisposable)cairo.GetTarget()).Dispose();
             ((IDisposable)cairo).Dispose();
 
@@ -146,11 +156,13 @@ namespace PingPong_Eduardo
 			if (ballX > width - ballDiameter)
 			{
 				ballHorizontalDirection = -1;
+                scorePlayer1 += 10;
 			}
 
 			if (ballX < -width + ballDiameter)
 			{
 				ballHorizontalDirection = 1;
+                scorePlayer2 += 10;
 			}
 
 			if (ballY > height - ballDiameter)
@@ -175,7 +187,13 @@ namespace PingPong_Eduardo
             //Begin Player collisions
 			ballX += ballHorizontalDirection * ballSpeed;
 			ballY += ballVerticalDirection * ballSpeed;
-        }
+            player2Y += ballVerticalDirection * Speed_Enemy;
+
+            if(scorePlayer1 == 50 || scorePlayer2 == 50){
+                GameOn = false;
+            }
+
+            }
 
         private bool DidCollideWithPlayer2(){
             bool Collision = false;
