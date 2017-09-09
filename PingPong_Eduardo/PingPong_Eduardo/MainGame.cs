@@ -33,6 +33,7 @@ namespace PingPong_Eduardo
             //probando input de usuario
             KeyPressEvent += Keypress;
             KeyReleaseEvent += KeyRelease;
+            drawingArea.ExposeEvent += OnExpose;
             ThreadStart getInput = new ThreadStart(handle_input);
             ThreadStart moveScene = new ThreadStart(move_scene);
             ThreadStart renderScene = new ThreadStart(render_scene);
@@ -59,10 +60,14 @@ namespace PingPong_Eduardo
 			switch (args.Event.Key)      //Regular key input, if press the right keys it moves in its direction
 			{
 				case Gdk.Key.W:
+                    Player_Up = false;
+                    break;
 				case Gdk.Key.Up:					
                     Player_Up = false;
 					break;
 				case Gdk.Key.S:
+                    Player_Down = false;
+                    break;
 				case Gdk.Key.Down:					
                     Player_Down = false;
 					break;				
@@ -77,11 +82,17 @@ namespace PingPong_Eduardo
             switch (args.Event.Key)      //Regular key input, if press the right keys it moves in its direction
 			{
                 case Gdk.Key.W:
+					Player_Down = false;
+					Player_Up = true;
+                    break;
 				case Gdk.Key.Up:
 					Player_Down = false;
 					Player_Up = true;
 					break;
                 case Gdk.Key.S:
+					Player_Up = false;
+					Player_Down = true;
+                    break;
                 case Gdk.Key.Down:
 					Player_Up = false;
 					Player_Down = true;
@@ -96,7 +107,6 @@ namespace PingPong_Eduardo
 
         void MakeNewFrame()
 		{
-			drawingArea.ExposeEvent += OnExpose;
 			Remove(drawingArea);
 			Add(drawingArea);
 			ShowAll();
@@ -110,30 +120,39 @@ namespace PingPong_Eduardo
             Cairo.Context cairo = Gdk.CairoHelper.Create(drawingAr.GdkWindow);
             cairo.Translate(width, height);
 
+            cairo.Save();
             cairo.SetSourceRGB(0.0, 0.0, 0.2);
             cairo.Rectangle(-width, -height, width * 2, height * 2);
             cairo.StrokePreserve();
             cairo.Fill();
+            cairo.Restore();
 
             //BALL
+            cairo.Save();
 			cairo.SetSourceRGB(0, 0.5, 1);
 			cairo.Arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
 			cairo.StrokePreserve();
 			cairo.Fill();
+            cairo.Restore();
 
             //PLAYER 1
+            cairo.Save();
             cairo.SetSourceRGB(0.6, 0.5, 0);
             cairo.Rectangle(player1X, player1Y, playersWidth, playersHeight);
             cairo.StrokePreserve();
             cairo.Fill();
+            cairo.Restore();
 
-			//PLAYER 2
+            //PLAYER 2
+            cairo.Save();
 			cairo.SetSourceRGB(0.6, 0.5, 0);
             cairo.Rectangle(player2X, player2Y, playersWidth, playersHeight);
 			cairo.StrokePreserve();
 			cairo.Fill();
+            cairo.Restore();
 
-			//Scores
+            //Scores
+            cairo.Save();
 			cairo.SetSourceRGB(1, 1, 1);
             cairo.SelectFontFace("Purisa", FontSlant.Normal, FontWeight.Bold);
             cairo.SetFontSize(13);
@@ -141,24 +160,34 @@ namespace PingPong_Eduardo
             cairo.ShowText("Player 1: " + scorePlayer1);
             cairo.MoveTo(-width+10, -height + 60);
             cairo.ShowText("Player 2: " + scorePlayer2);
+            cairo.Restore();
+
 
             if(playerOneWon){
+                cairo.Save();
 				cairo.SetSourceRGB(1, 1, 1);
 				cairo.SelectFontFace("Purisa", FontSlant.Normal, FontWeight.Bold);
 				cairo.SetFontSize(15);
 				cairo.MoveTo(-50, 0);
-				cairo.ShowText("Player One Won : " + scorePlayer1);
+                cairo.ShowText("Player One Won");
+                cairo.MoveTo(-50,+60);
+                cairo.ShowText("Final Score: "+ scorePlayer1);
+                cairo.Restore();
             }
 
             if(playerTwoWon){
+                cairo.Save();
 				cairo.SetSourceRGB(1, 1, 1);
 				cairo.SelectFontFace("Purisa", FontSlant.Normal, FontWeight.Bold);
 				cairo.SetFontSize(15);
 				cairo.MoveTo(-50, 0);
-                cairo.ShowText("Player Two Won : " + scorePlayer2);
+                cairo.ShowText("Player Two Won");
+				cairo.MoveTo(-50, +60);
+				cairo.ShowText("Final Score: " + scorePlayer2);
+                cairo.Restore();
             }
 
-            ((IDisposable)cairo.GetTarget()).Dispose();
+            ((IDisposable)cairo.Target).Dispose();
             ((IDisposable)cairo).Dispose();
 
         }
@@ -167,7 +196,7 @@ namespace PingPong_Eduardo
         void handle_input(){
             do
             {
-                Thread.Sleep(100);
+                Thread.Sleep(40);
                 if (GameOn)
                 {
                     move_player();
@@ -179,7 +208,7 @@ namespace PingPong_Eduardo
         void move_scene(){
             do
             {
-                Thread.Sleep(100);
+                Thread.Sleep(40);
                 if(GameOn){
                     move_ball();                
                     }
@@ -191,7 +220,7 @@ namespace PingPong_Eduardo
 		{
 			do
 			{
-				    Thread.Sleep(100);	
+				    Thread.Sleep(40);	
 					Gtk.Application.Invoke(delegate {
 						MakeNewFrame();
 					});
@@ -286,7 +315,7 @@ namespace PingPong_Eduardo
 
             }
             if(Player_Down){
-                if(player1Y > height -50){
+                if(player1Y > height -70){
                     Speed_Player = 0;
                 } else{
                 Speed_Player = 10;
