@@ -6,7 +6,7 @@ namespace PongRevenge
 	{
 		private global::Gtk.VBox vbox1;
 		
-		private global::Gtk.Image image2;
+		private global::Gtk.Image image1;
 		
 		private global::Gtk.Label label4;
 		
@@ -23,18 +23,21 @@ namespace PongRevenge
 			global::Stetic.Gui.Initialize (this);
 			// Widget PongRevenge.MainWindow
 			this.Name = "PongRevenge.MainWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
+			this.Title = global::Mono.Unix.Catalog.GetString ("PongRevenge");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child PongRevenge.MainWindow.Gtk.Container+ContainerChild
 			this.vbox1 = new global::Gtk.VBox ();
-			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 12;
 			// Container child vbox1.Gtk.Box+BoxChild
-			this.image2 = new global::Gtk.Image ();
-			this.image2.Name = "image2";
-			this.vbox1.Add (this.image2);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.image2]));
+			this.image1 = new global::Gtk.Image ();
+			this.image1.WidthRequest = 200;
+			this.image1.HeightRequest = 400;
+			this.image1.Name = "image1";
+			this.image1.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("PongRevenge.ping_pong.png");
+			this.vbox1.Add (this.image1);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.image1]));
 			w1.Position = 0;
+			w1.Expand = false;
 			w1.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.label4 = new global::Gtk.Label ();
@@ -88,8 +91,8 @@ namespace PongRevenge
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 358;
-			this.DefaultHeight = 415;
+			this.DefaultWidth = 490;
+			this.DefaultHeight = 557;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 			this.playBtn.Clicked += new global::System.EventHandler (this.playInit);

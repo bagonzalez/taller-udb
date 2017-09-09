@@ -21,6 +21,9 @@ namespace PongRevenge
 		int xPlayer1 = -270;
 		int yPlayer2 = 0;
 		int xPlayer2 = 260;
+		int scorePlayer1 = 0;
+		int scorePlayer2 = 0;
+		int framesGames = 35;
 
 
 		//TODO: El ancho y el alto son la mitad de la altura real
@@ -38,6 +41,7 @@ namespace PongRevenge
 			diametroBola = radioBola * 2;
 			SetPosition(WindowPosition.Center);
 			DeleteEvent += delegate { Application.Quit(); };;
+			darea.ExposeEvent += OnExpose;
 			Thread loopFrames = new Thread (new ThreadStart (DoBackgroundWork));
 			loopFrames.Start ();
 
@@ -66,9 +70,11 @@ namespace PongRevenge
 		}
 
 		void newMakeFrame(){
-			darea.ExposeEvent += OnExpose;
+			
 			Remove (darea);
 			Add(darea);
+
+		
 			ShowAll();
 		}
 
@@ -79,72 +85,98 @@ namespace PongRevenge
 			cr.Translate(width, height);
 			//cr.LineWidth = 9;
 
+			cr.Save ();
+			//TODO: Fondo
 			cr.SetSourceRGB(0.1, 0.5, 0.5);
 			cr.Rectangle(-width, -height, width*2, height*2);
 			cr.StrokePreserve();
 			cr.Fill();
+			cr.Restore ();
 
+			cr.Save ();
+			//TODO:Disenio
+			cr.SetSourceRGB(1, 1, 1);
+			cr.Rectangle(0, -height, 2, height*2);
+			cr.StrokePreserve();
+			cr.Fill();
+			cr.Restore ();
+
+			cr.Save ();
 			//TODO:player1
 			cr.SetSourceRGB(0.1, 0.8, 0);
 			cr.Rectangle(xPlayer1, yPlayer1, 10, 40);
 			cr.StrokePreserve();
 			cr.Fill();
+			cr.Restore ();
 
+			cr.Save ();
 			//TODO:player2
 			cr.SetSourceRGB(1, 1, 0);
 			cr.Rectangle(xPlayer2, yPlayer2, 10, 40);
 			cr.StrokePreserve();
 			cr.Fill();
+			cr.Restore ();
 
+			cr.Save ();
 			//TODO:ball
 			cr.SetSourceRGB(1, 0.5, 0);
 			cr.Arc(x, y, 10, 0, 2*Math.PI);
 			cr.StrokePreserve();
 			cr.Fill();
+			cr.Restore ();
 
+			cr.Save ();
+			//TODO: Score 1
+			cr.SetSourceRGB(1, 1, 1);
+			cr.SelectFontFace("Free Sans", FontSlant.Normal, FontWeight.Bold);
+			cr.SetFontSize(20);
+			cr.MoveTo(-60,-height +30);
+			cr.ShowText(scorePlayer1.ToString());
+			cr.Restore ();
+
+			cr.Save ();
+			//TODO: Score 2
+			cr.SetSourceRGB(1, 1, 1);
+			cr.SelectFontFace("Free Sans", FontSlant.Normal, FontWeight.Bold);
+			cr.SetFontSize(20);
+			cr.MoveTo(50, -height +30);
+			cr.ShowText(scorePlayer2.ToString());
+			cr.Restore ();
+
+			cr.Save ();
+			if (scorePlayer1 >= 10) {
+				cr.SetSourceRGB (1, 1, 1);
+				cr.SelectFontFace ("Free Sans", FontSlant.Normal, FontWeight.Bold);
+				cr.SetFontSize (40);
+				cr.MoveTo (-200, 0);
+				cr.ShowText ("El player1 ha ganado!");
+			} else if (scorePlayer2 >= 10) {
+				cr.SetSourceRGB (1, 1, 1);
+				cr.SelectFontFace ("Free Sans", FontSlant.Normal, FontWeight.Bold);
+				cr.SetFontSize (20);
+				cr.MoveTo (50, -height + 30);
+				cr.ShowText (scorePlayer2.ToString ());
+			}
+			cr.ClosePath ();
+			cr.Restore ();
 			((IDisposable) cr.Target).Dispose();                                      
 			((IDisposable) cr).Dispose();
+
 		}
-
-		public void moveBall(int x, int y){
-			if(x > width - diametroBola){
-				direccionHorizontal = -1;
-			}
-
-			if(x < -width + diametroBola){
-				direccionHorizontal = 1;
-			}
-
-			if(y > height - diametroBola){
-				direccionVertical = -1;
-			}
-
-			if(y < -height + diametroBola
-			)
-			{
-				direccionVertical = 1;
-			}
-
-			if (x < xPlayer1 + 5 &&(y < yPlayer1 - 20 && y > yPlayer1 + 20)
-			) {
-				
-			}
-
-			x += direccionHorizontal*velocidad;
-			y += direccionVertical*velocidad;
-		}
-
+			
 		public void DoBackgroundWork ()
 		{
 			
 			do {
-				Thread.Sleep (100);
+				Thread.Sleep (1000 / framesGames);
 				if(x > width - diametroBola){
 					direccionHorizontal = -1;
+					scorePlayer1++;
 				}
 
 				if(x < -width + diametroBola){
 					direccionHorizontal = 1;
+					scorePlayer2++;
 				}
 
 				if(y > height - diametroBola){
@@ -169,12 +201,8 @@ namespace PongRevenge
 				y += direccionVertical*velocidad;
 				yPlayer2 = y;
 				Gtk.Application.Invoke (delegate {newMakeFrame ();});
-
-				Console.WriteLine(x+","+ y);
 			} while (gameActive);
 		}
-			
-			
 	}
 }
 

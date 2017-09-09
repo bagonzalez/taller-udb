@@ -8,9 +8,9 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/PongRevenge.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="PongRevenge.MainWindow" design-size="358 415">
+  <widget class="Gtk.Window" id="PongRevenge.MainWindow" design-size="490 557">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="Title" translatable="yes">PongRevenge</property>
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
@@ -18,12 +18,16 @@
         <property name="MemberName" />
         <property name="Spacing">12</property>
         <child>
-          <widget class="Gtk.Image" id="image2">
-            <property name="MemberName" />
+          <widget class="Gtk.Image" id="image1">
+            <property name="MemberName">0</property>
+            <property name="WidthRequest">200</property>
+            <property name="HeightRequest">400</property>
+            <property name="Pixbuf">resource:PongRevenge.ping_pong.png</property>
           </widget>
           <packing>
             <property name="Position">0</property>
-            <property name="AutoSize">False</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
         </child>

@@ -4,3 +4,4 @@
 /home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/bin/Debug/PongRevenge.exe
 /home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.exe
 /home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.exe.mdb
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.ping_pong.png
