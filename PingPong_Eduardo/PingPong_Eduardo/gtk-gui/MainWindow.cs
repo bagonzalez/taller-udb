@@ -7,6 +7,16 @@ public partial class MainWindow
 
 	private global::Gtk.Button buttonGame;
 
+	private global::Gtk.Button buttonNewUser;
+
+	private global::Gtk.Entry username;
+
+	private global::Gtk.Button buttonMultiplayer;
+
+	private global::Gtk.Label userLabel;
+
+	private global::Gtk.Label label2;
+
 	protected virtual void Build()
 	{
 		global::Stetic.Gui.Initialize(this);
@@ -20,23 +30,76 @@ public partial class MainWindow
 		this.fixed1.HasWindow = false;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.buttonGame = new global::Gtk.Button();
+		this.buttonGame.WidthRequest = 200;
 		this.buttonGame.CanFocus = true;
 		this.buttonGame.Name = "buttonGame";
 		this.buttonGame.UseUnderline = true;
-		this.buttonGame.Label = global::Mono.Unix.Catalog.GetString("Iniciar Juego");
+		this.buttonGame.Label = global::Mono.Unix.Catalog.GetString("Un Jugador");
 		this.fixed1.Add(this.buttonGame);
 		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.buttonGame]));
-		w1.X = 156;
-		w1.Y = 134;
+		w1.X = 126;
+		w1.Y = 249;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.buttonNewUser = new global::Gtk.Button();
+		this.buttonNewUser.WidthRequest = 200;
+		this.buttonNewUser.CanFocus = true;
+		this.buttonNewUser.Name = "buttonNewUser";
+		this.buttonNewUser.UseUnderline = true;
+		this.buttonNewUser.Label = global::Mono.Unix.Catalog.GetString("Nuevo Usuario");
+		this.fixed1.Add(this.buttonNewUser);
+		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.buttonNewUser]));
+		w2.X = 125;
+		w2.Y = 204;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.username = new global::Gtk.Entry();
+		this.username.WidthRequest = 200;
+		this.username.CanFocus = true;
+		this.username.Name = "username";
+		this.username.IsEditable = true;
+		this.username.InvisibleChar = '●';
+		this.fixed1.Add(this.username);
+		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.username]));
+		w3.X = 123;
+		w3.Y = 170;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.buttonMultiplayer = new global::Gtk.Button();
+		this.buttonMultiplayer.WidthRequest = 200;
+		this.buttonMultiplayer.CanFocus = true;
+		this.buttonMultiplayer.Name = "buttonMultiplayer";
+		this.buttonMultiplayer.UseUnderline = true;
+		this.buttonMultiplayer.Label = global::Mono.Unix.Catalog.GetString("Multijugador");
+		this.fixed1.Add(this.buttonMultiplayer);
+		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.buttonMultiplayer]));
+		w4.X = 126;
+		w4.Y = 290;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.userLabel = new global::Gtk.Label();
+		this.userLabel.Name = "userLabel";
+		this.userLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Bienvenid@ ");
+		this.fixed1.Add(this.userLabel);
+		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.userLabel]));
+		w5.X = 18;
+		w5.Y = 416;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.label2 = new global::Gtk.Label();
+		this.label2.WidthRequest = 200;
+		this.label2.Name = "label2";
+		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Pong v1.0");
+		this.fixed1.Add(this.label2);
+		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.label2]));
+		w6.X = 126;
+		w6.Y = 99;
 		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 400;
-		this.DefaultHeight = 300;
+		this.DefaultWidth = 453;
+		this.DefaultHeight = 451;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.buttonGame.Clicked += new global::System.EventHandler(this.openGameWindow);
+		this.buttonNewUser.Clicked += new global::System.EventHandler(this.newUser);
+		this.buttonMultiplayer.Clicked += new global::System.EventHandler(this.promptMultiplayer);
 	}
 }

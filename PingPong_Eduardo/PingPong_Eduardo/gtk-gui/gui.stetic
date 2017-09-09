@@ -6,7 +6,7 @@
   <import>
     <widget-library name="../bin/Debug/PingPong_Eduardo.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
+  <widget class="Gtk.Window" id="MainWindow" design-size="453 451">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -18,15 +18,80 @@
         <child>
           <widget class="Gtk.Button" id="buttonGame">
             <property name="MemberName" />
+            <property name="WidthRequest">200</property>
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
-            <property name="Label" translatable="yes">Iniciar Juego</property>
+            <property name="Label" translatable="yes">Un Jugador</property>
             <property name="UseUnderline">True</property>
             <signal name="Clicked" handler="openGameWindow" />
           </widget>
           <packing>
-            <property name="X">156</property>
-            <property name="Y">134</property>
+            <property name="X">126</property>
+            <property name="Y">249</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="buttonNewUser">
+            <property name="MemberName" />
+            <property name="WidthRequest">200</property>
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Nuevo Usuario</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="newUser" />
+          </widget>
+          <packing>
+            <property name="X">125</property>
+            <property name="Y">204</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="username">
+            <property name="MemberName" />
+            <property name="WidthRequest">200</property>
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
+          </widget>
+          <packing>
+            <property name="X">123</property>
+            <property name="Y">170</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="buttonMultiplayer">
+            <property name="MemberName" />
+            <property name="WidthRequest">200</property>
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Multijugador</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="promptMultiplayer" />
+          </widget>
+          <packing>
+            <property name="X">126</property>
+            <property name="Y">290</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="userLabel">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">Bienvenid@ </property>
+          </widget>
+          <packing>
+            <property name="X">18</property>
+            <property name="Y">416</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label2">
+            <property name="MemberName" />
+            <property name="WidthRequest">200</property>
+            <property name="LabelProp" translatable="yes">Pong v1.0</property>
+          </widget>
+          <packing>
+            <property name="X">126</property>
+            <property name="Y">99</property>
           </packing>
         </child>
       </widget>

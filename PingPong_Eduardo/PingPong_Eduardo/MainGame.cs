@@ -22,14 +22,14 @@ namespace PingPong_Eduardo
         int scorePlayer1 = 0, scorePlayer2 = 0;
         Boolean Player_Up, Player_Down = false;        //Booleans to see if player is going up or down
         Boolean renderGame = true;
-        Boolean GameOn = false;//Is the game on or paused
+        Boolean GameOn = false;
+        Boolean playerOneWon = false, playerTwoWon = false;
 
         public MainGame() :
                 base(Gtk.WindowType.Toplevel)
         {
             SetDefaultSize(width * 2, height * 2);
             SetPosition(WindowPosition.Center);
-            DeleteEvent += delegate { Application.Quit(); };
             //probando input de usuario
             KeyPressEvent += Keypress;
             KeyReleaseEvent += KeyRelease;
@@ -42,6 +42,13 @@ namespace PingPong_Eduardo
             inputThread.Start();
 			sceneThread.Start();			
             renderThread.Start();
+
+            DeleteEvent += delegate { 
+                Application.Quit();
+                inputThread.Abort();
+                sceneThread.Abort();
+                renderThread.Abort();            
+            };
         }
 
         [GLib.ConnectBefore]
@@ -135,6 +142,22 @@ namespace PingPong_Eduardo
             cairo.MoveTo(-width+10, -height + 60);
             cairo.ShowText("Player 2: " + scorePlayer2);
 
+            if(playerOneWon){
+				cairo.SetSourceRGB(1, 1, 1);
+				cairo.SelectFontFace("Purisa", FontSlant.Normal, FontWeight.Bold);
+				cairo.SetFontSize(15);
+				cairo.MoveTo(-50, 0);
+				cairo.ShowText("Player One Won : " + scorePlayer1);
+            }
+
+            if(playerTwoWon){
+				cairo.SetSourceRGB(1, 1, 1);
+				cairo.SelectFontFace("Purisa", FontSlant.Normal, FontWeight.Bold);
+				cairo.SetFontSize(15);
+				cairo.MoveTo(-50, 0);
+                cairo.ShowText("Player Two Won : " + scorePlayer2);
+            }
+
             ((IDisposable)cairo.GetTarget()).Dispose();
             ((IDisposable)cairo).Dispose();
 
@@ -216,6 +239,14 @@ namespace PingPong_Eduardo
 
             if(scorePlayer1 == 50 || scorePlayer2 == 50){
                 GameOn = false;
+                if(scorePlayer1 == 50){
+                    playerOneWon = true;
+                }
+
+                if(scorePlayer2 == 50){
+                    playerTwoWon = true;
+                }
+
             }
 
             }
