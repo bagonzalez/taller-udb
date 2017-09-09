@@ -78,6 +78,7 @@
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Connect</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="multiBtn" />
           </widget>
           <packing>
             <property name="Position">4</property>
@@ -111,6 +112,14 @@
       <widget class="Gtk.DrawingArea" id="drawArea">
         <property name="MemberName" />
       </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="PongRevenge.GameMultiplayerWindow" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">GameMultiplayerWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
     </child>
   </widget>
 </stetic-interface>

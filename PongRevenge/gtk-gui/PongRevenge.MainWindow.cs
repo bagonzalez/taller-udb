@@ -27,6 +27,7 @@ namespace PongRevenge
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child PongRevenge.MainWindow.Gtk.Container+ContainerChild
 			this.vbox1 = new global::Gtk.VBox ();
+			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 12;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.image1 = new global::Gtk.Image ();
@@ -96,6 +97,7 @@ namespace PongRevenge
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 			this.playBtn.Clicked += new global::System.EventHandler (this.playInit);
+			this.connectBtn.Clicked += new global::System.EventHandler (this.multiBtn);
 		}
 	}
 }

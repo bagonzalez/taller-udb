@@ -2,8 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="GameWindow.cs">
     <Files>
-      <File FileName="MainWindow.cs" Line="1" Column="1" />
-      <File FileName="GameWindow.cs" Line="160" Column="20" />
+      <File FileName="MainWindow.cs" Line="32" Column="2" />
+      <File FileName="GameWindow.cs" Line="238" Column="30" />
+      <File FileName="GameMultiplayerWindow.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

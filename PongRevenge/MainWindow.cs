@@ -22,5 +22,12 @@ public partial class MainWindow: Gtk.Window
 		win.Show();
 			this.Destroy();
 	}
+
+		protected void multiBtn (object sender, EventArgs e)
+		{
+			GameMultiplayerWindow win = new GameMultiplayerWindow ();
+			win.Show ();
+			this.Destroy ();
+		}
 }
 }

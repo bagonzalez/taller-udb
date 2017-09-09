@@ -66,6 +66,8 @@
     <Compile Include="GameWindow.cs" />
     <Compile Include="gtk-gui\PongRevenge.GameWindow.cs" />
     <Compile Include="gtk-gui\PongRevenge.MainWindow.cs" />
+    <Compile Include="GameMultiplayerWindow.cs" />
+    <Compile Include="gtk-gui\PongRevenge.GameMultiplayerWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

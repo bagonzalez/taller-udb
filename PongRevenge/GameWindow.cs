@@ -24,6 +24,9 @@ namespace PongRevenge
 		int scorePlayer1 = 0;
 		int scorePlayer2 = 0;
 		int framesGames = 35;
+		int ranOper= 1;
+		Random rnd;
+		Thread loopFrames;
 
 
 		//TODO: El ancho y el alto son la mitad de la altura real
@@ -37,12 +40,13 @@ namespace PongRevenge
 		public GameWindow () : base (Gtk.WindowType.Toplevel)
 		{	
 			KeyPressEvent += KeyPress;
+			rnd = new Random();
 			SetDefaultSize(width * 2, height * 2);
 			diametroBola = radioBola * 2;
 			SetPosition(WindowPosition.Center);
 			DeleteEvent += delegate { Application.Quit(); };;
 			darea.ExposeEvent += OnExpose;
-			Thread loopFrames = new Thread (new ThreadStart (DoBackgroundWork));
+			loopFrames = new Thread (new ThreadStart (DoBackgroundWork));
 			loopFrames.Start ();
 
 		}
@@ -111,6 +115,7 @@ namespace PongRevenge
 
 			cr.Save ();
 			//TODO:player2
+
 			cr.SetSourceRGB(1, 1, 0);
 			cr.Rectangle(xPlayer2, yPlayer2, 10, 40);
 			cr.StrokePreserve();
@@ -141,21 +146,44 @@ namespace PongRevenge
 			cr.SetFontSize(20);
 			cr.MoveTo(50, -height +30);
 			cr.ShowText(scorePlayer2.ToString());
+			cr.Fill();
 			cr.Restore ();
 
 			cr.Save ();
-			if (scorePlayer1 >= 10) {
-				cr.SetSourceRGB (1, 1, 1);
-				cr.SelectFontFace ("Free Sans", FontSlant.Normal, FontWeight.Bold);
-				cr.SetFontSize (40);
-				cr.MoveTo (-200, 0);
-				cr.ShowText ("El player1 ha ganado!");
-			} else if (scorePlayer2 >= 10) {
+			if (scorePlayer2 >= 10) {
 				cr.SetSourceRGB (1, 1, 1);
 				cr.SelectFontFace ("Free Sans", FontSlant.Normal, FontWeight.Bold);
 				cr.SetFontSize (20);
-				cr.MoveTo (50, -height + 30);
-				cr.ShowText (scorePlayer2.ToString ());
+				cr.MoveTo (-100, 0);
+				cr.ShowText ("El player 2 ha ganado!");
+				cr.Fill();
+				gameActive = false;
+
+				/*MessageDialog md = new MessageDialog(this, 
+					DialogFlags.DestroyWithParent, MessageType.Info, 
+					ButtonsType.Close, "Gano el jugador 1");
+				md.Run();
+				md.Destroy();
+				*/
+				loopFrames.Abort ();
+			}
+
+			if (scorePlayer1 >= 10) {
+				cr.SetSourceRGB (1, 1, 1);
+				cr.SelectFontFace ("Free Sans", FontSlant.Normal, FontWeight.Bold);
+				cr.SetFontSize (20);
+				cr.MoveTo (-100, 0);
+				cr.ShowText ("El player 1 ha ganado!");
+				cr.Fill();
+				gameActive = false;
+				/*
+				MessageDialog md = new MessageDialog(this, 
+					DialogFlags.DestroyWithParent, MessageType.Info, 
+					ButtonsType.Close, "Gano el jugador 2");
+				md.Run();
+				md.Destroy();
+*/
+				loopFrames.Abort ();
 			}
 			cr.ClosePath ();
 			cr.Restore ();
@@ -187,19 +215,36 @@ namespace PongRevenge
 					direccionVertical = 1;
 				}
 
-				if (x < xPlayer1 + 20 &&(y > yPlayer1 - 30 && y < yPlayer1 + 30)
+				if (x < xPlayer1 + 20 &&(y > yPlayer1 - 10 && y < yPlayer1 + 60)
 				) {
 					direccionHorizontal = 1;
 				}
 
-				if (x > xPlayer2 - 20  &&(y > yPlayer2 - 30 && y < yPlayer2 + 30)
+				if (x > xPlayer2 - 20  &&(y > yPlayer2 - 10 && y < yPlayer2 + 60)
 				) {
 					direccionHorizontal = -1;
 				}
 
+				if( yPlayer2 < y){
+					yPlayer2 += velocidad -1 *ranOper;
+				}
+
+				if( yPlayer2 > y){
+					yPlayer2 -= velocidad -1 * ranOper;
+				}
+
+
+				if(x < 0){
+					if (rnd.Next (0, 2) == 0) {
+						ranOper = -1;
+					}else {
+						ranOper = 1;
+					}
+				}
+
 				x += direccionHorizontal*velocidad;
 				y += direccionVertical*velocidad;
-				yPlayer2 = y;
+			
 				Gtk.Application.Invoke (delegate {newMakeFrame ();});
 			} while (gameActive);
 		}
