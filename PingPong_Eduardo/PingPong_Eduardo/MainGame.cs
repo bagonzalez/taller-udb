@@ -33,11 +33,15 @@ namespace PingPong_Eduardo
             //probando input de usuario
             KeyPressEvent += Keypress;
             KeyReleaseEvent += KeyRelease;
-            ThreadStart childref = new ThreadStart(move_scene);
-			Console.WriteLine("In Main: Creating the Child thread");
-			Thread childThread = new Thread(childref);
-			childThread.Start();			
-
+            ThreadStart getInput = new ThreadStart(handle_input);
+            ThreadStart moveScene = new ThreadStart(move_scene);
+            ThreadStart renderScene = new ThreadStart(render_scene);
+            Thread inputThread = new Thread(getInput);
+            Thread sceneThread = new Thread(moveScene);
+            Thread renderThread = new Thread(renderScene);
+            inputThread.Start();
+			sceneThread.Start();			
+            renderThread.Start();
         }
 
         [GLib.ConnectBefore]
@@ -136,20 +140,41 @@ namespace PingPong_Eduardo
 
         }
 
+        //Thread solo para manejar el input del usuario
+        void handle_input(){
+            do
+            {
+                Thread.Sleep(100);
+                if (GameOn)
+                {
+                    move_player();
+                }
+            } while (renderGame);
+        }
+
+        //Thread para calcular todas las variables de la esfera
         void move_scene(){
             do
             {
-                Thread.Sleep(75);
+                Thread.Sleep(100);
                 if(GameOn){
-                    move_player();
-                    move_ball();
-                Gtk.Application.Invoke(delegate { 
-                    MakeNewFrame(); 
-                });
+                    move_ball();                
                     }
             } while (renderGame);
         }
 
+        //Thread para crear y borrar frames
+		void render_scene()
+		{
+			do
+			{
+				    Thread.Sleep(100);	
+					Gtk.Application.Invoke(delegate {
+						MakeNewFrame();
+					});
+				
+			} while (renderGame);
+		}
 
         void move_ball(){
             //Begin, Box collisions
@@ -227,7 +252,7 @@ namespace PingPong_Eduardo
                     Speed_Player = -10;
                 }
                 player1Y += Speed_Player;
-                //Console.WriteLine(player1Y);
+
             }
             if(Player_Down){
                 if(player1Y > height -50){
@@ -236,7 +261,7 @@ namespace PingPong_Eduardo
                 Speed_Player = 10;
                     }
                 player1Y += Speed_Player;
-                //Console.WriteLine(player1Y);
+
             }
 
 
