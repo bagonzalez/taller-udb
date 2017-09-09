@@ -27,17 +27,25 @@ public partial class MainWindow : Gtk.Window
 
     protected void newUser(object sender, EventArgs e)
     {
-        this.buttonGame.Sensitive = true;
-        this.buttonMultiplayer.Sensitive = true;
-        usernameString = username.Text;
-        this.username.Sensitive = false;
-        this.buttonNewUser.Sensitive = false;
-        userLabel.TextWithMnemonic = "Bienvenid@ "+ usernameString;
-        Console.WriteLine(usernameString);
-
+		if (username.Text.Equals("")||username.Text.Equals(" ")){
+			userLabel.TextWithMnemonic = "Usuario invalido"; 
+		}
+		else
+		{
+			this.buttonGame.Sensitive = true;
+			this.buttonMultiplayer.Sensitive = true;
+			usernameString = username.Text;
+			this.username.Sensitive = false;
+			this.buttonNewUser.Sensitive = false;
+			userLabel.TextWithMnemonic = "Bienvenid@ " + usernameString;
+			Console.WriteLine(usernameString);
+		}
     }
 
     protected void promptMultiplayer(object sender, EventArgs e)
     {
+		GameMultiplayer multiplayer = new GameMultiplayer();
+		multiplayer.Show();
+		this.Destroy();
     }
 }

@@ -17,7 +17,7 @@ namespace PingPong_Eduardo
         int ballSpeed = 10;
         int ballRadius = 10, ballDiameter = 20;
 		int Speed_Player = 10;                           //Dont change these, change them from the settings page
-		int Speed_Enemy = 8;
+		int Speed_Enemy = 9;
         int ballHorizontalDirection = 1, ballVerticalDirection = 1;
         int scorePlayer1 = 0, scorePlayer2 = 0;
         Boolean Player_Up, Player_Down = false;        //Booleans to see if player is going up or down

@@ -2,7 +2,9 @@
   <MonoDevelop.Ide.ItemProperties.PingPong__Eduardo PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="PingPong_Eduardo/MainGame.cs">
     <Files>
-      <File FileName="PingPong_Eduardo/MainGame.cs" Line="314" Column="42" />
+      <File FileName="PingPong_Eduardo/MainWindow.cs" Line="31" Column="9" />
+      <File FileName="PingPong_Eduardo/MainGame.cs" Line="269" Column="31" />
+      <File FileName="PingPong_Eduardo/GameMultiplayer.cs" Line="5" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />

@@ -1,0 +1,6 @@
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/.NETFramework,Version=v4.6.1.AssemblyAttribute.cs
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.gtk-gui.gui.stetic
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/bin/Debug/PingPong_Eduardo.pdb
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/bin/Debug/PingPong_Eduardo.exe
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.exe
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.pdb

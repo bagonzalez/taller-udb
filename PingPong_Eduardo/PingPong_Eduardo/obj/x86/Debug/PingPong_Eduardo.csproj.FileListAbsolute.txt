@@ -4,3 +4,10 @@
 /home/eduardo/Documents/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.csproj.CoreCompileInputs.cache
 /home/eduardo/Documents/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.exe
 /home/eduardo/Documents/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.pdb
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/bin/Debug/PingPong_Eduardo.exe
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/bin/Debug/PingPong_Eduardo.pdb
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.csprojResolveAssemblyReference.cache
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.csproj.CoreCompileInputs.cache
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.exe
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.pdb
+/Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/bin/Debug/PingPong_Eduardo.exe.config
