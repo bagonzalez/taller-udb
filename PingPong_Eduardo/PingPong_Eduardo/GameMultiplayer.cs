@@ -2,12 +2,23 @@
 using Gtk;
 using Cairo;
 using System.Threading;
+using System.ServiceModel;
+using ServiceMultiGame;
 
 namespace PingPong_Eduardo
 {
-	public partial class GameMultiplayer : Gtk.Window
+
+    public partial class GameMultiplayer : Gtk.Window
 	{
-		DrawingArea drawingArea = new DrawingArea();
+
+        // Create a client
+        ServiceMultiplayerClient client;
+        string playerOne;
+
+        // The name of the player received from the main menu
+        public string playerName { get; set; }
+
+        DrawingArea drawingArea = new DrawingArea();
 		int width = 320;
 		int height = 240;
 		int ballX;
@@ -26,14 +37,25 @@ namespace PingPong_Eduardo
 		Boolean playerOneWon = false, playerTwoWon = false;
 
 
-		public GameMultiplayer() :
+		public GameMultiplayer(string name) :
 				base(Gtk.WindowType.Toplevel)
 		{
-			
+            this.playerName = name;
 			SetDefaultSize(width * 2, height * 2);
 			SetPosition(WindowPosition.Center);
-			//probando input de usuario
-			KeyPressEvent += Keypress;
+
+            // Construct InstanceContext to handle messages on callback interface
+            InstanceContext instanceContext = new InstanceContext(new CallbackHandler());
+
+            // Create a client
+            client = new ServiceMultiplayerClient(instanceContext);
+            Console.WriteLine("Press <ENTER> to terminate client once the output is displayed.");
+            Console.WriteLine();
+            // Call the AddTo service operation.
+            client.Register();
+            beginMultiplayer();
+            //probando input de usuario
+            KeyPressEvent += Keypress;
 			KeyReleaseEvent += KeyRelease;
 			drawingArea.ExposeEvent += OnExpose;
 			ThreadStart getInput = new ThreadStart(handle_input);
@@ -51,8 +73,13 @@ namespace PingPong_Eduardo
 				inputThread.Abort();
 				sceneThread.Abort();
 				renderThread.Abort();
-			};
-		}
+                //Closing the client gracefully closes the connection and cleans up resources
+                client.Close();
+                client.Abort();
+            };
+
+            
+        }
 
 		[GLib.ConnectBefore]
 		private void KeyRelease(object o, KeyReleaseEventArgs args)
@@ -86,28 +113,50 @@ namespace PingPong_Eduardo
 				case Gdk.Key.W:
 					Player_Down = false;
 					Player_Up = true;
-					break;
+                    // Sends the command to the web sevice 
+                    client.KeyUp(playerOne);
+                    break;
 				case Gdk.Key.Up:
 					Player_Down = false;
 					Player_Up = true;
-					break;
+                    // Sends the command to the web sevice 
+                    client.KeyUp(playerOne);
+                    break;
 				case Gdk.Key.S:
 					Player_Up = false;
 					Player_Down = true;
-					break;
+                    // Sends the command to the web sevice 
+                    client.KeyDown(playerOne);
+                    break;
 				case Gdk.Key.Down:
 					Player_Up = false;
 					Player_Down = true;
-					break;
+                    // Sends the command to the web sevice 
+                    client.KeyDown(playerOne);
+                    break;
 				case Gdk.Key.space:    //If hit space it starts the game,
-					GameOn = true;
+					GameOn = true;                    
 					break;
 			}
 		}
 
+        //Method to prepare the room for multiplayer
+        private void beginMultiplayer()
+        {
+            playerOne = client.RegisterUser(playerName);
+            Console.WriteLine("Player token " + playerOne);
+            Console.WriteLine("Player name " + playerName);
+            string room = client.GetRoom();
+            if (room == "")
+            {
+                room = client.CreateRoom("juego");
+            }
 
+            client.PlayGame(playerOne, room);
+            Console.WriteLine("room" + room);
+        }
 
-		void MakeNewFrame()
+        void MakeNewFrame()
 		{
 			Remove(drawingArea);
 			Add(drawingArea);
@@ -242,6 +291,8 @@ namespace PingPong_Eduardo
 			{
 				ballHorizontalDirection = -1;
 				scorePlayer1 += 10;
+                //Here I add a new score for the player one
+                client.AddScore(10,playerOne);
 			}
 
 			if (ballX < -width + ballDiameter)
@@ -285,9 +336,8 @@ namespace PingPong_Eduardo
 				if (scorePlayer2 == 50)
 				{
 					playerTwoWon = true;
-				}
-
-			}
+				}                
+            }
 
 		}
 

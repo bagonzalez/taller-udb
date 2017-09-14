@@ -11,3 +11,23 @@
 /Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.exe
 /Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/obj/x86/Debug/PingPong_Eduardo.pdb
 /Users/usuario/Documents/GameProject/taller-udb/PingPong_Eduardo/PingPong_Eduardo/bin/Debug/PingPong_Eduardo.exe.config
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\PingPong_Eduardo.exe.config
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\PingPong_Eduardo.exe
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\PingPong_Eduardo.pdb
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\atk-sharp.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\gdk-sharp.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\glade-sharp.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\glib-sharp.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\gtk-sharp.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\Mono.Cairo.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\Mono.Posix.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\pango-sharp.dll
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\gdk-sharp.pdb
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\glib-sharp.pdb
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\glade-sharp.pdb
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\pango-sharp.pdb
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\bin\Debug\atk-sharp.pdb
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\obj\x86\Debug\PingPong_Eduardo.exe
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\obj\x86\Debug\PingPong_Eduardo.pdb
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\obj\x86\Debug\PingPong_Eduardo.csproj.CoreCompileInputs.cache
+C:\Users\Eduardo\Documents\Mobile Projects\taller-udb\PingPong_Eduardo\PingPong_Eduardo\obj\x86\Debug\PingPong_Eduardo.csprojResolveAssemblyReference.cache

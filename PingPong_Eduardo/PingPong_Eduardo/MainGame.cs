@@ -25,6 +25,8 @@ namespace PingPong_Eduardo
         Boolean GameOn = false;
         Boolean playerOneWon = false, playerTwoWon = false;
 
+        public string playerName { get; set; }
+
         public MainGame() :
                 base(Gtk.WindowType.Toplevel)
         {
@@ -50,6 +52,8 @@ namespace PingPong_Eduardo
                 sceneThread.Abort();
                 renderThread.Abort();            
             };
+
+           
         }
 
         [GLib.ConnectBefore]
@@ -99,7 +103,9 @@ namespace PingPong_Eduardo
 					break;
                 case Gdk.Key.space:    //If hit space it starts the game,
 				GameOn = true;
-				break;
+                Console.WriteLine(playerName);
+
+                break;
 			}
         }
 

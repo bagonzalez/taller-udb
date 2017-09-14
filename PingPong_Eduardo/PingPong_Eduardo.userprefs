@@ -1,16 +1,10 @@
 ﻿<Properties StartupConfiguration="{96DA97DA-3C53-46DB-93C9-41DD7CF17406}|Default">
-  <MonoDevelop.Ide.ItemProperties.PingPong__Eduardo PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PingPong_Eduardo/MainGame.cs">
-    <Files>
-      <File FileName="PingPong_Eduardo/MainWindow.cs" Line="31" Column="9" />
-      <File FileName="PingPong_Eduardo/MainGame.cs" Line="269" Column="31" />
-      <File FileName="PingPong_Eduardo/GameMultiplayer.cs" Line="5" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.PingPong__Eduardo PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench />
   <MultiItemStartupConfigurations />
 </Properties>
