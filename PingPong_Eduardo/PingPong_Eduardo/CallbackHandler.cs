@@ -23,13 +23,18 @@ namespace PingPong_Eduardo
             Console.WriteLine("Tecla Abajo " + "usuario " + token);
             flagToken = game.playerOne;
             if (!(flagToken.Equals(token))) {
-                game.Player2Moving();
+                game.Player2_moveDown();
             }
         }
 
         public void KeyUp(string token)
         {
             Console.WriteLine("Tecla arriba " + "usuario " + token);
+            flagToken = game.playerOne;
+            if (!(flagToken.Equals(token)))
+            {
+                game.Player2_moveUp();
+            }
         }
 
         public void ResultMsg(string eqn)

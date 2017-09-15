@@ -324,9 +324,8 @@ namespace PingPong_Eduardo
 			//Begin Player collisions
 			ballX += ballHorizontalDirection * ballSpeed;
 			ballY += ballVerticalDirection * ballSpeed;
-			player2Y += ballVerticalDirection * Speed_Enemy;
-
-			if (scorePlayer1 == 50 || scorePlayer2 == 50)
+			
+            if (scorePlayer1 == 50 || scorePlayer2 == 50)
 			{
 				GameOn = false;
 				if (scorePlayer1 == 50)
@@ -367,6 +366,31 @@ namespace PingPong_Eduardo
 		}
         public void Player2Moving() {
             Console.WriteLine("Player 2 moving");
+        }
+
+        public void Player2_moveUp() {
+            if (player2Y < -height + 10)
+            {
+                Speed_Enemy = -0;
+            }
+            else
+            {
+                Speed_Enemy = -10;
+            }
+            player2Y += Speed_Enemy;
+        }
+
+
+        public void Player2_moveDown() {
+            if (player2Y > height - 70)
+            {
+                Speed_Enemy = 0;
+            }
+            else
+            {
+                Speed_Enemy = 10;
+            }
+            player2Y += Speed_Enemy;
         }
 
 		void move_player()
