@@ -364,9 +364,6 @@ namespace PingPong_Eduardo
 			}
 			return Collision;
 		}
-        public void Player2Moving() {
-            Console.WriteLine("Player 2 moving");
-        }
 
         public void Player2_moveUp() {
             if (player2Y < -height + 10)
@@ -421,8 +418,9 @@ namespace PingPong_Eduardo
 				player1Y += Speed_Player;
 
 			}
-
-
 		}
+
+        public void Player2_AddNewScore() {
+        }
 	}
 }

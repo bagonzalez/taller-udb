@@ -6,7 +6,7 @@ namespace PingPong_Eduardo
     class CallbackHandler : IMultiplayerCallback
     {
         GameMultiplayer game;
-        string flagToken;
+        string flagToken, tokenPlayer_2;
 
         public CallbackHandler(GameMultiplayer game) {
             this.game = game;            
@@ -42,9 +42,12 @@ namespace PingPong_Eduardo
             Console.WriteLine("MSJ({0})", eqn);
         }
 
+
+
         public void ResultScore(double result, string token)
         {
-            Console.WriteLine("Result({0} token {1})", result, token);
+            Console.WriteLine("Result({0} token {1})", result, token);    
+            
         }
     }
 }
