@@ -5,6 +5,14 @@ namespace PingPong_Eduardo
 {
     class CallbackHandler : IMultiplayerCallback
     {
+        GameMultiplayer game;
+        string flagToken;
+
+        public CallbackHandler(GameMultiplayer game) {
+            this.game = game;            
+           
+        }
+        
         public void GetPosition(double result)
         {
             Console.WriteLine("Result({0})", result);
@@ -13,6 +21,10 @@ namespace PingPong_Eduardo
         public void KeyDown(string token)
         {
             Console.WriteLine("Tecla Abajo " + "usuario " + token);
+            flagToken = game.playerOne;
+            if (!(flagToken.Equals(token))) {
+                game.Player2Moving();
+            }
         }
 
         public void KeyUp(string token)

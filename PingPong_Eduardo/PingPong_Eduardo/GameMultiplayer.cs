@@ -13,7 +13,7 @@ namespace PingPong_Eduardo
 
         // Create a client
         ServiceMultiplayerClient client;
-        string playerOne;
+        public string playerOne { get; set; }
 
         // The name of the player received from the main menu
         public string playerName { get; set; }
@@ -35,7 +35,7 @@ namespace PingPong_Eduardo
 		Boolean renderGame = true;
 		Boolean GameOn = false;
 		Boolean playerOneWon = false, playerTwoWon = false;
-
+        Boolean closeMulti = false;
 
 		public GameMultiplayer(string name) :
 				base(Gtk.WindowType.Toplevel)
@@ -45,14 +45,14 @@ namespace PingPong_Eduardo
 			SetPosition(WindowPosition.Center);
 
             // Construct InstanceContext to handle messages on callback interface
-            InstanceContext instanceContext = new InstanceContext(new CallbackHandler());
+            InstanceContext instanceContext = new InstanceContext(new CallbackHandler(this));
 
             // Create a client
             client = new ServiceMultiplayerClient(instanceContext);
             Console.WriteLine("Press <ENTER> to terminate client once the output is displayed.");
             Console.WriteLine();
             // Call the AddTo service operation.
-            client.Register();
+            client.Register();            
             beginMultiplayer();
             //probando input de usuario
             KeyPressEvent += Keypress;
@@ -70,12 +70,13 @@ namespace PingPong_Eduardo
 
 			DeleteEvent += delegate {
 				Application.Quit();
-				inputThread.Abort();
-				sceneThread.Abort();
-				renderThread.Abort();
                 //Closing the client gracefully closes the connection and cleans up resources
                 client.Close();
                 client.Abort();
+                inputThread.Abort();
+				sceneThread.Abort();
+				renderThread.Abort();
+                
             };
 
             
@@ -364,7 +365,9 @@ namespace PingPong_Eduardo
 			}
 			return Collision;
 		}
-
+        public void Player2Moving() {
+            Console.WriteLine("Player 2 moving");
+        }
 
 		void move_player()
 		{
