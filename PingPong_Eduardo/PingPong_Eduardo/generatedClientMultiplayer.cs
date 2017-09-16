@@ -100,10 +100,12 @@ namespace ServiceMultiGame
             return base.Channel.GetRoom();
         }
 
+        
         public void GetScore(string token)
         {
             base.Channel.GetScore(token);
         }
+    
 
         public void KeyDown(string token)
         {

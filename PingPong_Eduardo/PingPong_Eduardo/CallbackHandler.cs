@@ -6,7 +6,7 @@ namespace PingPong_Eduardo
     class CallbackHandler : IMultiplayerCallback
     {
         GameMultiplayer game;
-        string flagToken, tokenPlayer_2;
+        string flagToken;
 
         public CallbackHandler(GameMultiplayer game) {
             this.game = game;            
@@ -24,6 +24,7 @@ namespace PingPong_Eduardo
             flagToken = game.playerOne;
             if (!(flagToken.Equals(token))) {
                 game.Player2_moveDown();
+                game.playerTwo = token;
             }
         }
 
@@ -34,6 +35,7 @@ namespace PingPong_Eduardo
             if (!(flagToken.Equals(token)))
             {
                 game.Player2_moveUp();
+                game.playerTwo = token;
             }
         }
 

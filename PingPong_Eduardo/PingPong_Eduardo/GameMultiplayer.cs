@@ -14,6 +14,7 @@ namespace PingPong_Eduardo
         // Create a client
         ServiceMultiplayerClient client;
         public string playerOne { get; set; }
+        public string playerTwo { get; set; }
 
         // The name of the player received from the main menu
         public string playerName { get; set; }
@@ -300,6 +301,7 @@ namespace PingPong_Eduardo
 			{
 				ballHorizontalDirection = 1;
 				scorePlayer2 += 10;
+                client.AddScore(10, playerTwo);
 			}
 
 			if (ballY > height - ballDiameter)
@@ -325,7 +327,7 @@ namespace PingPong_Eduardo
 			ballX += ballHorizontalDirection * ballSpeed;
 			ballY += ballVerticalDirection * ballSpeed;
 			
-            if (scorePlayer1 == 50 || scorePlayer2 == 50)
+            if (scorePlayer1 >= 50 || scorePlayer2 >= 50)
 			{
 				GameOn = false;
 				if (scorePlayer1 == 50)
