@@ -5,99 +5,87 @@ namespace PongRevenge
 	public partial class MainWindow
 	{
 		private global::Gtk.VBox vbox1;
-		
-		private global::Gtk.Image image1;
-		
+
 		private global::Gtk.Label label4;
-		
+
 		private global::Gtk.Button playBtn;
-		
+
 		private global::Gtk.Label label2;
-		
+
 		private global::Gtk.Button connectBtn;
-		
+
 		private global::Gtk.HSeparator hseparator1;
 
-		protected virtual void Build ()
+		protected virtual void Build()
 		{
-			global::Stetic.Gui.Initialize (this);
+			global::Stetic.Gui.Initialize(this);
 			// Widget PongRevenge.MainWindow
 			this.Name = "PongRevenge.MainWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("PongRevenge");
+			this.Title = global::Mono.Unix.Catalog.GetString("PongRevenge");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child PongRevenge.MainWindow.Gtk.Container+ContainerChild
-			this.vbox1 = new global::Gtk.VBox ();
+			this.vbox1 = new global::Gtk.VBox();
 			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 12;
 			// Container child vbox1.Gtk.Box+BoxChild
-			this.image1 = new global::Gtk.Image ();
-			this.image1.WidthRequest = 200;
-			this.image1.HeightRequest = 400;
-			this.image1.Name = "image1";
-			this.image1.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("PongRevenge.ping_pong.png");
-			this.vbox1.Add (this.image1);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.image1]));
-			w1.Position = 0;
+			this.label4 = new global::Gtk.Label();
+			this.label4.Name = "label4";
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString("Single Player");
+			this.vbox1.Add(this.label4);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.label4]));
+			w1.Position = 1;
 			w1.Expand = false;
 			w1.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
-			this.label4 = new global::Gtk.Label ();
-			this.label4.Name = "label4";
-			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Single Player");
-			this.vbox1.Add (this.label4);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.label4]));
-			w2.Position = 1;
-			w2.Expand = false;
-			w2.Fill = false;
-			// Container child vbox1.Gtk.Box+BoxChild
-			this.playBtn = new global::Gtk.Button ();
+			this.playBtn = new global::Gtk.Button();
 			this.playBtn.CanFocus = true;
 			this.playBtn.Name = "playBtn";
 			this.playBtn.UseUnderline = true;
-			this.playBtn.Label = global::Mono.Unix.Catalog.GetString ("Play");
-			this.vbox1.Add (this.playBtn);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.playBtn]));
-			w3.Position = 2;
+			this.playBtn.Label = global::Mono.Unix.Catalog.GetString("Play");
+			this.vbox1.Add(this.playBtn);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.playBtn]));
+			w2.Position = 2;
+			w2.Expand = false;
+			w2.Fill = false;
+			// Container child vbox1.Gtk.Box+BoxChild
+			this.label2 = new global::Gtk.Label();
+			this.label2.Name = "label2";
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Multiplayer");
+			this.vbox1.Add(this.label2);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.label2]));
+			w3.Position = 3;
 			w3.Expand = false;
 			w3.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
-			this.label2 = new global::Gtk.Label ();
-			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Multiplayer");
-			this.vbox1.Add (this.label2);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.label2]));
-			w4.Position = 3;
-			w4.Expand = false;
-			w4.Fill = false;
-			// Container child vbox1.Gtk.Box+BoxChild
-			this.connectBtn = new global::Gtk.Button ();
+			this.connectBtn = new global::Gtk.Button();
 			this.connectBtn.CanFocus = true;
 			this.connectBtn.Name = "connectBtn";
 			this.connectBtn.UseUnderline = true;
-			this.connectBtn.Label = global::Mono.Unix.Catalog.GetString ("Connect");
-			this.vbox1.Add (this.connectBtn);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.connectBtn]));
-			w5.Position = 4;
+			this.connectBtn.Label = global::Mono.Unix.Catalog.GetString("Connect");
+			this.vbox1.Add(this.connectBtn);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.connectBtn]));
+			w4.Position = 4;
+			w4.Expand = false;
+			w4.Fill = false;
+			// Container child vbox1.Gtk.Box+BoxChild
+			this.hseparator1 = new global::Gtk.HSeparator();
+			this.hseparator1.Name = "hseparator1";
+			this.vbox1.Add(this.hseparator1);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hseparator1]));
+			w5.Position = 5;
 			w5.Expand = false;
 			w5.Fill = false;
-			// Container child vbox1.Gtk.Box+BoxChild
-			this.hseparator1 = new global::Gtk.HSeparator ();
-			this.hseparator1.Name = "hseparator1";
-			this.vbox1.Add (this.hseparator1);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hseparator1]));
-			w6.Position = 5;
-			w6.Expand = false;
-			w6.Fill = false;
-			this.Add (this.vbox1);
-			if ((this.Child != null)) {
-				this.Child.ShowAll ();
+			this.Add(this.vbox1);
+			if ((this.Child != null))
+			{
+				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 490;
-			this.DefaultHeight = 557;
-			this.Show ();
-			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-			this.playBtn.Clicked += new global::System.EventHandler (this.playInit);
-			this.connectBtn.Clicked += new global::System.EventHandler (this.multiBtn);
+			this.DefaultHeight = 558;
+			this.Show();
+			this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+			this.playBtn.Clicked += new global::System.EventHandler(this.playInit);
+			this.connectBtn.Clicked += new global::System.EventHandler(this.multiBtn);
 		}
 	}
 }

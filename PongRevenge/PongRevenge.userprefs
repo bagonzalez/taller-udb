@@ -1,14 +1,14 @@
-﻿<Properties StartupItem="PongRevenge.csproj" RefactoringSettings.EnableRefactorings="True">
+﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupConfiguration="{BF03823E-2AA0-4747-B6D5-59B14752B7C9}|Default">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="GameWindow.cs">
-    <Files>
-      <File FileName="MainWindow.cs" Line="32" Column="2" />
-      <File FileName="GameWindow.cs" Line="238" Column="30" />
-      <File FileName="GameMultiplayerWindow.cs" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.PongRevenge PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MultiplayerSelectUserWindow.cs">
+    <Files>
+      <File FileName="gtk-gui\PongRevenge.MultiplayerSelectUserWindow.cs" Line="71" Column="20" />
+      <File FileName="MultiplayerSelectUserWindow.cs" Line="4" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
 </Properties>
