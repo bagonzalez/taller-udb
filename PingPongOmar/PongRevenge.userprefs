@@ -1,0 +1,13 @@
+﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupConfiguration="{BF03823E-2AA0-4747-B6D5-59B14752B7C9}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameWindow.cs">
+    <Files>
+      <File FileName="GameWindow.cs" Line="50" Column="41" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.PingPongOmar PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

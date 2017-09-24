@@ -1,0 +1,2 @@
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Release/PongRevenge.gtk-gui.gui.stetic

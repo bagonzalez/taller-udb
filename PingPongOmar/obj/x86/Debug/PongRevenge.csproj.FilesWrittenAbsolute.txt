@@ -1,0 +1,14 @@
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.gtk-gui.gui.stetic
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/bin/Debug/PongRevenge.exe.mdb
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/bin/Debug/PongRevenge.exe
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.exe
+/home/cesar/Documentos/Proyectos/Universidad/Materias/Juegos/JuegoCSharp/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.exe.mdb
+/Users/omardiaz/Documents/taller-udb/PongRevenge/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/omardiaz/Documents/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.gtk-gui.gui.stetic
+/Users/omardiaz/Documents/taller-udb/PongRevenge/bin/Debug/PongRevenge.exe.mdb
+/Users/omardiaz/Documents/taller-udb/PongRevenge/bin/Debug/PongRevenge.exe
+/Users/omardiaz/Documents/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.exe
+/Users/omardiaz/Documents/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.exe.mdb
+/Users/omardiaz/Documents/taller-udb/PongRevenge/bin/Debug/PongRevenge.pdb
+/Users/omardiaz/Documents/taller-udb/PongRevenge/obj/x86/Debug/PongRevenge.pdb

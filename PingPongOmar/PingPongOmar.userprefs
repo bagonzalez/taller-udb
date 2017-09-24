@@ -1,0 +1,18 @@
+﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupConfiguration="{BF03823E-2AA0-4747-B6D5-59B14752B7C9}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameEngineWindow.cs">
+    <Files>
+      <File FileName="GameEngineWindow.cs" Line="100" Column="25" />
+      <File FileName="MainWindow.cs" Line="31" Column="11" />
+      <File FileName="Program.cs" Line="1" Column="1" />
+      <File FileName="gtk-gui/PongRevenge.GameWindow.cs" Line="5" Column="33" />
+      <File FileName="App.config" Line="22" Column="17" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.PingPongOmar PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

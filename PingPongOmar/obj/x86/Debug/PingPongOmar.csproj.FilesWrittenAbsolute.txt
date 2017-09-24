@@ -1,0 +1,8 @@
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/PongRevenge.gtk-gui.gui.stetic
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/PongRevenge.exe
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/PongRevenge.exe.mdb
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/PongRevenge.pdb
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/bin/Debug/PongRevenge.exe.mdb
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/bin/Debug/PongRevenge.pdb
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/bin/Debug/PongRevenge.exe

@@ -1,0 +1,6 @@
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/bin/Debug/PongRevenge.exe.config
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/bin/Debug/PongRevenge.exe
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/bin/Debug/PongRevenge.pdb
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/PingPongOmar.csproj.CoreCompileInputs.cache
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/PongRevenge.exe
+/Users/omardiaz/Documents/taller-udb/PingPongOmar/obj/x86/Debug/PongRevenge.pdb
