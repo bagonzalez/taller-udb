@@ -56,7 +56,7 @@ public class Player2DControllerCustom : MonoBehaviour {
 	}
 
     private void HandleInput() {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.LeftControl))
         {
             attack = true;
         }
