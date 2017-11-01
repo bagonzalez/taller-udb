@@ -94,8 +94,8 @@ MonoBehaviour:
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -8
-      logMax: 4
+      logMin: -15
+      logMax: 9
   bloom:
     m_Enabled: 1
     m_Settings:
@@ -121,7 +121,7 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 0
-        temperature: 20
+        temperature: 0
         tint: 0
         hueShift: 0
         saturation: 1
@@ -289,9 +289,9 @@ MonoBehaviour:
     m_Enabled: 0
     m_Settings:
       colored: 1
-      intensity: 0.5
-      size: 1
-      luminanceContribution: 0.8
+      intensity: 0.541
+      size: 0.3
+      luminanceContribution: 0.888
   vignette:
     m_Enabled: 0
     m_Settings:
