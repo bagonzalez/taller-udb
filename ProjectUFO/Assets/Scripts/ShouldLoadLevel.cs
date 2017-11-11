@@ -4,19 +4,31 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ShouldLoadLevel : MonoBehaviour {
+    [SerializeField]
+    private int loadLevel;
 
     void OnTriggerEnter(Collider other) {
         Debug.Log("Enter");
-        SceneManager.LoadScene(2);
+        /**int current = SceneManager.GetActiveScene().buildIndex;
+
+        if(current == 1)
+        {
+            SceneManager.LoadScene(2);
+        }
+
+        if (current == 2) {
+            SendToMain();
+        }
+
+        if (current == 3) {
+            SendToMain();
+        }**/
+
+        SceneManager.LoadScene(loadLevel);
     }
 
-    void OnTriggerStay(Collider other)
-    {
-        Debug.Log("Stay");
+    private void SendToMain() {
+        SceneManager.LoadScene(1);
     }
-
-    void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Exit");
-    }
+    
 }

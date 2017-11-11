@@ -22,4 +22,8 @@ public class LevelManager : MonoBehaviour {
     public void LevelTwo() {
         SceneManager.LoadScene(2);
     }
+
+    public void DeleteSaves() {
+        PlayerPrefs.DeleteAll();
+    }
 }

@@ -25,7 +25,9 @@ public class MovingPlatform : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        currentState = "";
         ChangeTarget();
+
 	}
 	
 	// Update is called once per frame

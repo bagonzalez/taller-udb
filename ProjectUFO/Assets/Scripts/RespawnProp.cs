@@ -5,17 +5,28 @@ using UnityEngine;
 public class RespawnProp : MonoBehaviour {
 
     [SerializeField]
-    private Transform prop;
+    private Transform[] propBodies;
 
     [SerializeField]
-    private Transform respawnPoint;
+    private Transform[] respawnPoint;
+
+    
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Prop")
+        if (other.tag == "Prop" || other.tag == "Player")
         {
-            prop.transform.position = respawnPoint.transform.position;
+            for (int i = 0; i < propBodies.Length; i++) {
+                if (other.gameObject == propBodies[i].gameObject)
+                {
+                    Rigidbody rigidbody = other.GetComponent<Rigidbody>();
+                    rigidbody.velocity = Vector3.zero;
+                    other.transform.position = respawnPoint[i].transform.position;
+                }
+            }
         }
+
+        
 
 
     }

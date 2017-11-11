@@ -8,6 +8,8 @@ TagManager:
   - Fire
   - LimitGround
   - Prop
+  - LightSwitch
+  - FalsePlatform
   layers:
   - Default
   - TransparentFX
